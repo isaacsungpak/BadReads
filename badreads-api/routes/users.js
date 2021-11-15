@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const {csrfProtection, asyncHandler} = require('../utils.js')
+const {csrfProtection, asyncHandler} = require('../utils.js');
+const { check, validationResult } = require('express-validator');
+const bcrypt = require('bcryptjs');
 
 const db = require('../db/models')
 
@@ -15,7 +17,7 @@ router.get('/register', csrfProtection, (req, res) => {
   })
 });
 
-const userValidator = [
+const userValidators = [
   check('firstName')
     .exists({ checkFalsy: true})
     .withMessage("Please provide a first name")
@@ -77,6 +79,10 @@ const userValidator = [
       return true;
     })
 ]
+
+router.post('/register', userValidators, csrfProtection, asyncHandler(async(req,res,next) => {
+  
+}))
 
 
 module.exports = router;
