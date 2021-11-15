@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const {csrfProtection, asyncHandler} = require('../utils.js');
+const {csrfProtection, asyncHandler} = require('../utils');
 const { check, validationResult } = require('express-validator');
+const {loginUser, logoutUser} = require('../auth')
 const bcrypt = require('bcryptjs');
-
 const db = require('../db/models')
 
 
@@ -90,7 +90,7 @@ router.post('/register', userValidators, csrfProtection, asyncHandler(async(req,
     const hashedPassword = await bcrypt.hash(password, 10);
     user.hashedPassword = hashedPassword;
     await user.save();
-    // to-do: login user
+    loginUser(req, res, user)
     res.redirect('/');
   } else {
     const errors = validationErrors.array().map(e => e.msg);
@@ -132,11 +132,12 @@ router.post('/log-in', csrfProtection, logInValidators, asyncHandler(async(req, 
     if(user !== null) {
       const passwordMatch = await bcrypt.compare(password, user.hashedPassword.toString());
       if (passwordMatch) {
+        loginUser(req, res, user)
         res.redirect('/');
       } else {
         errors.push("The provided credentials were invalid.")
       }
-      // To Do: this is where we also login the user
+
     } else {
       errors.push("The provided credentials were invalid.")
     }
