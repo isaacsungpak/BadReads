@@ -63,7 +63,7 @@ const userValidator = [
     .withMessage('Please provide a value for Password')
     .isLength({min: 8, max: 50})
     .withMessage('Password must be between 8 and 50 characters long')
-    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/, 'g')
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/, 'g'),
 
   check('confirmPassword')
     .exists({ checkFalsy: true})
