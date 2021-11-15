@@ -1,0 +1,6 @@
+PORT=8080
+DB_USERNAME=bad_reads_app
+DB_PASSWORD=badbook
+DB_DATABASE=bad_reads
+DB_HOST=localhost
+SESSION_SECRET=twilight
