@@ -103,5 +103,48 @@ router.post('/register', userValidators, csrfProtection, asyncHandler(async(req,
   }
 }))
 
+router.get('/log-in', csrfProtection, (req, res) => {
+  res.render('user-log-in', {
+    title: 'Login',
+    csrfToken: req.csrfToken()
+  })
+});
+
+const logInValidators = [
+  check('username')
+    .exists({checkFalsy: true})
+    .withMessage("Please provide a username"),
+  check('password')
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a password")
+]
+
+router.post('/log-in', csrfProtection, logInValidators, asyncHandler(async(req, res) => {
+  const {username, password} = req.body
+  let errors = [];
+  const validatorErrors = validationResult(req);
+  if(validatorErrors.isEmpty()) {
+    const user = await db.User.findOne({
+      where: {
+        username,
+      }
+    });
+    if(user !== null) {
+      const passwordMatch = await bcrypt.compare(password, user.hashedPassword.toString());
+      if (passwordMatch) {
+        res.redirect('/');
+      } else {
+        errors.push("The provided credentials were invalid.")
+      }
+      // To Do: this is where we also login the user
+    } else {
+      errors.push("The provided credentials were invalid.")
+    }
+  } else {
+    errors = validatorErrors.array().map((error) => error.msg)
+  }
+  res.render('user-login', {title: 'Login', errors, username, csrfToken: req.csrfToken()});
+}));
+
 
 module.exports = router;
