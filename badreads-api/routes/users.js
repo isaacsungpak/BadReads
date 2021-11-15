@@ -20,13 +20,13 @@ const userValidator = [
     .exists({ checkFalsy: true})
     .withMessage("Please provide a first name")
     .isLength({ max: 50})
-    .withMessage("First Name cannot be more than 50 characters long")
+    .withMessage("First Name cannot be more than 50 characters long"),
 
   check('lastName')
     .exists({ checkFalsy: true})
     .withMessage("Please provide a last name")
     .isLength({ max: 50})
-    .withMessage("Last Name cannot be more than 50 characters long")
+    .withMessage("Last Name cannot be more than 50 characters long"),
 
   check('emailAddress')
     .exists({ checkFalsy: true})
