@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   Book.associate = function (models) {
-    Book.belongsTo(models.Author, { foreignKey: 'bookId' });
+    Book.belongsTo(models.Author, { foreignKey: 'authorId' });
     Book.belongsTo(models.Genre, { foreignKey: 'genreId' });
     const columnMap = {
       through: 'BooksOnBookshelf',
