@@ -3,7 +3,13 @@ html
   head
       block head
         title= title
-        link(rel='stylesheet' href='/stylesheets/reset.css')
+        meta(charset='utf-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+        link(rel='stylesheet' href='../stylesheets/index.css')
   body
-    h2= title
+    style
+        include ../stylesheets/index.css
+    .nav-bar
+        h1.bad-reads Bad Reads
+
     block content
