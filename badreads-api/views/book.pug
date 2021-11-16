@@ -1,0 +1,8 @@
+extends layout.pug
+
+block content
+    h1= book.title
+    h2= book.authorId
+    h3= book.genreId
+    img(src=book.coverPhoto alt='test')
+        h3=book.review
