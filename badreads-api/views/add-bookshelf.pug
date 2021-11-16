@@ -1,0 +1,11 @@
+extends layout.pug
+
+include utils.pug
+
+block content
+    h2 Add a Bookshelf
+    +validationErrorSummary(errors)
+    form(method="post" action="/bookshelves/add")
+        +field("Name", "name", bookshelf.name)
+        input(name="_csrf" type="hidden" value=csrfToken)
+        button Add

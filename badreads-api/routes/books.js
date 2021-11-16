@@ -4,10 +4,7 @@ const csrf = require('csurf')
 const csrfProtection = csrf({ cookie: true })
 const db = require('../db/models');
 
-const {Book, Review, Rating, Genre, Author, User} = require('../db/models')
-
 const { asyncHandler } = require('../utils');
-const { log } = require('debug');
 
 
 /* GET books. */
@@ -31,7 +28,7 @@ router.get('/:id(\\d+)', asyncHandler(async(req, res) => {
           as: 'bookReviews'
         }]
       })
-      
+
       res.render('book', {title: 'Badbook', book});
     }))
 

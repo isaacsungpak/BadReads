@@ -1,0 +1,8 @@
+extends layout.pug
+
+block content
+    h2 Bookshelves
+    ul
+        each bookshelf in bookshelves
+            li: a(href=`/bookshelves/${bookshelf.id}`)= bookshelf.name
+    a(href='/bookshelves/add') New Bookshelf

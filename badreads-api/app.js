@@ -9,6 +9,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const booksRouter = require('./routes/books');
+const bookshelvesRouter = require('./routes/bookshelves');
 const { restoreUser, requireAuth } = require('./auth');
 const {sessionSecret} = require('./config');
 const csrf = require('csurf')
@@ -28,8 +29,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // set up session middleware
 const store = new SequelizeStore({ db: sequelize });
 
-app.use(
-  session({
+app.use(session({
+    name: 'badreads.sid',
     secret: sessionSecret,
     store,
     saveUninitialized: false,
@@ -44,6 +45,7 @@ app.use(restoreUser);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/books', booksRouter);
+app.use('/bookshelves', bookshelvesRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
