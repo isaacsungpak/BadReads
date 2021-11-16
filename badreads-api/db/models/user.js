@@ -24,19 +24,21 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   }, {});
-  // TODO ALIAS
+  // query includes {model:book, as:userReviews}
   User.associate = function (models) {
     const columnMap1 = {
       through: 'Review',
       otherKey: 'bookId',
-      foreignKey: 'userId'
+      foreignKey: 'userId',
+      as: 'userReviews'
     }
     User.belongsToMany(models.Book, columnMap1);
 
     const columnMap2 = {
       through: 'Rating',
       otherKey: 'bookId',
-      foreignKey: 'userId'
+      foreignKey: 'userId',
+      as: 'userRatings'
     }
     User.belongsToMany(models.Book, columnMap2);
   };

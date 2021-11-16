@@ -1,0 +1,9 @@
+extends layout.pug
+
+block content
+    h1= book.title
+    h2= book.Author.name
+    h3= book.Genre.name
+    img(src=book.coverPhoto alt='test')
+    h3= book.bookReviews[0].username
+    h3= book.bookReviews[0].Review.reviewBody
