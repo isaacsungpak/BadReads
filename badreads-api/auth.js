@@ -6,7 +6,7 @@ const loginUser = (req, res, user) => {
     }
 }
 
-const restoreUser = async (req, res, next) => {
+const restoreUser = async(req, res, next) => {
     if (req.session.auth) {
         const {userId} = req.session.auth
 
@@ -14,17 +14,17 @@ const restoreUser = async (req, res, next) => {
             const user = await db.User.findByPk(userId)
 
             if (user) {
-                res.locals.authenticated = true
-                res.locals.user = user
-                next()
+                res.locals.authenticated = true;
+                res.locals.user = user;
+                next();
             }
         } catch(err) {
-            res.locals.authenticated = false
-            next(err)
+            res.locals.authenticated = false;
+            next(err);
         }
     } else {
-        res.local.authenticated = false
-        next()
+        res.locals.authenticated = false;
+        next();
     }
 }
 
@@ -43,5 +43,7 @@ const requireAuth = (req, res, next) => {
 
 module.exports = {
     loginUser,
-    restoreUser
+    restoreUser,
+    logoutUser,
+    requireAuth
 }

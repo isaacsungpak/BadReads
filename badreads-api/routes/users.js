@@ -103,10 +103,11 @@ router.post('/register', userValidators, csrfProtection, asyncHandler(async(req,
   }
 }))
 
-router.get('/log-in', csrfProtection, (req, res) => {
-  res.render('user-log-in', {
+router.get('/login', csrfProtection, (req, res) => {
+  res.render('user-login', {
     title: 'Login',
-    csrfToken: req.csrfToken()
+    csrfToken: req.csrfToken(),
+    username: ""
   })
 });
 
@@ -119,7 +120,7 @@ const logInValidators = [
     .withMessage("Please provide a password")
 ]
 
-router.post('/log-in', csrfProtection, logInValidators, asyncHandler(async(req, res) => {
+router.post('/login', csrfProtection, logInValidators, asyncHandler(async(req, res) => {
   const {username, password} = req.body
   let errors = [];
   const validatorErrors = validationResult(req);
