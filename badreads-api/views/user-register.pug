@@ -1,15 +1,19 @@
 extends layout.pug
 
+append head
+    link(rel='stylesheet' href='./index.css')
+
 include utils.pug
 
 block content
-    +validationErrorSummary(errors)
-    form(method="post" action="/users/register")
-        +field("First Name", "firstName", user.firstName, "text", "John")
-        +field("Last Name", "lastName", user.lastName, "text", "McDavid")
-        +field("Email Address", "emailAddress", user.emailAddress, "email", "abc@defg.com")
-        +field("Username", "username", user.username, "text", "clubPenguinGuy118")
-        +field("Password", "password", "", "password")
-        +field("Confirm Password", "confirmPassword", "", "password")
-        input(name="_csrf" type="hidden" value=csrfToken)
-        button Register
+    .form
+        +validationErrorSummary(errors)
+        form(method="post" action="/users/register")
+            +field("First Name", "firstName", user.firstName, "text", "John")
+            +field("Last Name", "lastName", user.lastName, "text", "McDavid")
+            +field("Email Address", "emailAddress", user.emailAddress, "email", "abc@defg.com")
+            +field("Username", "username", user.username, "text", "clubPenguinGuy118")
+            +field("Password", "password", "", "password")
+            +field("Confirm Password", "confirmPassword", "", "password")
+            input(name="_csrf" type="hidden" value=csrfToken)
+            button Register
