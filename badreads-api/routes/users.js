@@ -105,7 +105,7 @@ router.post('/register', userValidators, csrfProtection, asyncHandler(async(req,
 
 router.get('/login', csrfProtection, (req, res) => {
   res.render('user-login', {
-    title: 'Login',
+    title: 'Log In',
     csrfToken: req.csrfToken(),
     username: ""
   })
