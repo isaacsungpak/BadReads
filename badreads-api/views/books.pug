@@ -9,4 +9,5 @@ html(lang="en")
     h1 Books  
       ul
         each book in books
-          li: a(img(src=book.coverPhoto alt='test' href=`/books/${book.id}`))
+          li: a(href=`/books/${book.id}`) 
+            img(src=book.coverPhoto alt='test')

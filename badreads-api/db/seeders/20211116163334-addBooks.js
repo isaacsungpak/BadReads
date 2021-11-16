@@ -12,7 +12,7 @@ module.exports = {
      title: 'test book',
      authorId: 1,
      genreId: 1,
-     coverPhoto: '../DataBaseSchemeGroup.png',
+     coverPhoto: 'https://images-na.ssl-images-amazon.com/images/I/318nujF5v5L._SY291_BO1,204,203,200_QL40_FMwebp_.jpg',
      createdAt: new Date(),
      updatedAt: new Date()
    }], {});
