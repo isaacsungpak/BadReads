@@ -9,7 +9,7 @@ module.exports = {
       Example:
       */
    return queryInterface.bulkInsert('Authors', [{
-    name: 'test genre',
+    name: 'test author',
     biography: 'test bio',
     photo: '../DataBaseSchemeGroup.png',
     createdAt: new Date(),
