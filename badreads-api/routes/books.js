@@ -31,8 +31,7 @@ router.get('/:id(\\d+)', asyncHandler(async(req, res) => {
           as: 'bookReviews'
         }]
       })
-      console.log(book.bookReviews[0].username)
-      console.log(book.bookReviews[0].Review.reviewBody)
+      
       res.render('book', {title: 'Badbook', book});
     }))
 

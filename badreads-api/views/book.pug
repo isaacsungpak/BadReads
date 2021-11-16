@@ -5,5 +5,7 @@ block content
     h2= book.Author.name
     h3= book.Genre.name
     img(src=book.coverPhoto alt='test')
-    h3= book.bookReviews[0].username
-    h3= book.bookReviews[0].Review.reviewBody
+
+    if book.bookReviews.length
+        h3= book.bookReviews[0].username
+        h3= book.bookReviews[0].Review.reviewBody
