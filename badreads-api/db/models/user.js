@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   }, {});
+  // TODO ALIAS
   User.associate = function (models) {
     const columnMap1 = {
       through: 'Review',
