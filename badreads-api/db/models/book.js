@@ -28,6 +28,20 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     Book.belongsToMany(models.Bookshelf, columnMap)
+    const columnMap1 = {
+      through: 'Review',
+      otherKey: 'userId',
+      foreignKey: 'bookId',
+      as: 'bookReviews'
+    }
+    Book.belongsToMany(models.User, columnMap1);
+    const columnMap2 = {
+      through: 'Rating',
+      otherKey: 'userId',
+      foreignKey: 'bookId',
+      as: 'bookRatings'
+    }
+    Book.belongsToMany(models.User, columnMap2);
   };
   return Book;
 };
