@@ -45,13 +45,23 @@ router.post('/add', requireAuth, bookshelfValidators, csrfProtection, asyncHandl
     }
 }));
 
-router.get('/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async(req,res,next) => {
+router.get('/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async(req,res) => {
     const bookshelfId = req.params.id;
     const { userId } = req.session.auth;
-    const bookshelf = await db.Bookshelf.findByPk(bookshelfId);
+    const bookshelf = await db.Bookshelf.findByPk(bookshelfId, {include: {model: db.Book, include: [db.Author, db.Genre]} });
 
-    if (bookshelf && userId === bookshelf.userId) res.render('bookshelf', { title: "Bookshelf", bookshelf, csrfToken: req.csrfToken()});
-    else next();
+    if (bookshelf && userId === bookshelf.userId) {
+        console.log(bookshelf.Books)
+        res.render('bookshelf', { title: "Bookshelf", bookshelf, csrfToken: req.csrfToken(), books: bookshelf.Books });
+    } else {
+        const errors = [];
+
+        if (bookshelf) errors.push('You do not have permission to view this bookshelf.')
+        else errors.push('This bookshelf does not exist.');
+
+        const bookshelves = await db.Bookshelf.findAll({ where: { userId }});
+        res.render('bookshelves', { title: "Bookshelves", bookshelves, errors });
+    }
 }));
 
 router.post('/delete/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async(req, res, next) => {
@@ -82,6 +92,17 @@ router.get('/edit/:id(\\d+)', requireAuth, bookshelfValidators, csrfProtection, 
     const bookshelfId = req.params.id;
     const bookshelf = await db.Bookshelf.findByPk(bookshelfId);
     res.render('bookshelf-edit', { title: "Edit Bookshelf", bookshelf, csrfToken: req.csrfToken()})
+}));
+
+router.post('/:bookshelfId(\\d+)/books/:bookId(\\d+)/delete', requireAuth, csrfProtection, asyncHandler(async(req, res, next) => {
+    const { bookId, bookshelfId } = req.params;
+    const bookToShelfAssociation = await db.BooksOnBookshelf.findOne({ where: { bookId, bookshelfId } });
+    try {
+        await bookToShelfAssociation.destroy();
+    } catch(e) {
+        next(e);
+    }
+    res.redirect(`/bookshelves/${bookshelfId}`);
 }));
 
 module.exports = router;

@@ -1,7 +1,10 @@
 extends layout.pug
 
+include utils.pug
+
 block content
   h1 Books
+    +validationErrorSummary(errors)
     ul
       each book in books
         li
@@ -13,8 +16,9 @@ block content
             if bookshelves
               .add-to-shelf
                 p Bookshelf:
-                form(method="post" action=`/books/${book.id}/bookshelves/`)
-                  select(name="bookshelf")
+                form(method="post" action=`/books/${book.id}/bookshelves`)
+                  select(name="bookshelfId")
                     each bookshelf in bookshelves
                       option(value=bookshelf.id)= bookshelf.name
+                  input(name="_csrf" type="hidden" value=csrfToken)
                   button Add
