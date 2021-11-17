@@ -2,9 +2,21 @@ extends layout.pug
 
 block content
     h2= bookshelf.name
-    form(method="post" action=`/bookshelves/delete/${bookshelf.id}`)
-        input(name="_csrf" type="hidden" value=csrfToken)
-        button Delete
+    if books
+        each book in books
+            li
+                .book-element
+                    a(href=`/books/${book.id}`)
+                        img(src=book.coverPhoto alt='Book Cover')
+                        h5= book.title
+                        h6= book.Author.name
+                    .remove-book
+                        form(method="post" action=`/bookshelves/${bookshelf.id}/books/${book.id}/delete`)
+                            input(name="_csrf" type="hidden" value=csrfToken)
+                            button Remove
     form(method="get" action=`/bookshelves/edit/${bookshelf.id}`)
         input(name="_csrf" type="hidden" value=csrfToken)
         button Edit
+    form(method="post" action=`/bookshelves/delete/${bookshelf.id}`)
+        input(name="_csrf" type="hidden" value=csrfToken)
+        button Delete

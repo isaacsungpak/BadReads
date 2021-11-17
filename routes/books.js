@@ -12,7 +12,7 @@ router.get('/', csrfProtection, asyncHandler(async (req, res) => {
   if (req.session.auth) {
     const { userId } = req.session.auth;
     const bookshelves = await db.Bookshelf.findAll({ where: { userId } });
-    res.render('books', { title: 'BadReads Books', books, bookshelves, csrfProtection });
+    res.render('books', { title: 'BadReads Books', books, bookshelves, csrfToken: req.csrfToken() });
   } else {
     res.render('books', { title: 'BadReads Books', books });
   }
@@ -80,5 +80,22 @@ router.post('/:id(\\d+)/reviews/', requireAuth, reviewValidators, csrfProtection
     })
   }
 }))
+
+router.post('/:id(\\d+)/bookshelves', requireAuth, csrfProtection, asyncHandler(async(req,res,next) => {
+  const bookId = req.params.id;
+  const { userId } = req.session.auth;
+  const { bookshelfId } = req.body;
+  const bookshelf = await db.Bookshelf.findByPk(bookshelfId);
+
+  if (userId == bookshelf.userId) {
+    db.BooksOnBookshelf.create({ bookId, bookshelfId });
+    res.redirect('/books');
+  } else {
+    const books = await db.Book.findAll({ include: db.Author })
+    const bookshelves = await db.Bookshelf.findAll({ where: { userId } });
+    const errors = ["You do not have permission to add to that bookshelf"];
+    res.render('books', { title: 'BadReads Books', books, bookshelves, csrfToken: req.csrfToken(), errors });
+  }
+}));
 
 module.exports = router;
