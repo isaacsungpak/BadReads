@@ -13,9 +13,9 @@ module.exports = {
       }], {});
     */
     return queryInterface.bulkInsert('BooksOnBookshelves', [
-      { bookId: 1, bookshelfId: 1 },
-      { bookId: 5, bookshelfId: 1 },
-      { bookId: 10, bookshelfId: 1 },
+      { bookId: 1, bookshelfId: 1, createdAt: new Date(), updatedAt: new Date() },
+      { bookId: 5, bookshelfId: 1, createdAt: new Date(), updatedAt: new Date() },
+      { bookId: 10, bookshelfId: 1, createdAt: new Date(), updatedAt: new Date() },
     ], {});
   },
 

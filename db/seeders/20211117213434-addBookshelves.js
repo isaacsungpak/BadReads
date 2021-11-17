@@ -13,7 +13,7 @@ module.exports = {
       }], {});
     */
     return queryInterface.bulkInsert('Bookshelves', [
-      { name: "demo bookshelf", userId: 1 },
+      { name: "demo bookshelf", userId: 1, createdAt: new Date(), updatedAt: new Date() },
     ], {});
   },
 
