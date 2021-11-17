@@ -11,12 +11,13 @@ html
         include ../stylesheets/index.css
     .nav-bar
         a(href=`/`): h1.bad-reads Bad Reads
-        a(href=`/bookshelves`): div.mybooks My Bookshelves
-        if locals.authenticated 
-          a(href=`/users/logout`): div.logout \Logout/
+        a(href=`/books`): div.mybooks Books
+        if locals.authenticated
+          a(href=`/bookshelves`): div.mybooks My Bookshelves
           a(href=`/`): div.profilePic Picture
           a(href=`/`): div.name Name
-        else 
+          a(href=`/users/logout`): div.logout \Logout/
+        else
           a(href=`/users/login`): div.login *Login*
           a(href=`/users/register`): div.register Register
     block content
