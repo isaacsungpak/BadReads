@@ -42,6 +42,8 @@ module.exports = (sequelize, DataTypes) => {
       as: 'bookRatings'
     }
     Book.belongsToMany(models.User, columnMap2);
+    Book.hasMany(models.Review, {foreignKey: 'bookId'});
+    Book.hasMany(models.Rating, {foreignKey: 'bookId'});
   };
   return Book;
 };

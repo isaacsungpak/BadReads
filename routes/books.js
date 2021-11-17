@@ -36,6 +36,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
 
   res.render('book', { title: 'Badbook', book, reviews });
 }))
+// testing
 
 
 router.get('/:id(\\d+)/reviews/add', requireAuth, csrfProtection, (req, res) => {
@@ -97,5 +98,29 @@ router.post('/:id(\\d+)/bookshelves', requireAuth, csrfProtection, asyncHandler(
     res.render('books', { title: 'BadReads Books', books, bookshelves, csrfToken: req.csrfToken(), errors });
   }
 }));
+
+
+router.get('/:id(\\d+)/ratings', requireAuth, csrfProtection, asyncHandler(async(req, res, next) => {
+  const bookId = req.params.id;
+  const book = await db.Book.findByPk(bookId, {include: [db.Author, db.Genre, {
+    model: db.User,
+    as: 'bookReviews'
+  }]});
+  // const reviews = await db.Review.findAll({where: {bookId}})
+  let newValue = 0;
+  const { userId } = req.session.auth;
+  const rating = await db.Rating.findAll({where: {userId, bookId}});
+  console.log("**************", rating)
+  if (rating) {
+    //update rating where userId has already rated 
+    await db.Rating.update({value: newValue}, {where: {bookId: bookId}});
+    
+  } else {
+    //submit rating where user has not rated 
+      await db.Rating.create({ value, userId, bookId });
+  }
+  res.render('book', { title: 'Badbook', book});
+
+}))
 
 module.exports = router;
