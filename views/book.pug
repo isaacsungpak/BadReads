@@ -7,5 +7,7 @@ block content
     img(src=book.coverPhoto alt='test')
 
     if book.bookReviews.length
-        h3= book.bookReviews[0].username
-        h3= book.bookReviews[0].Review.reviewBody
+        each review in reviews
+            h3= review.username
+            h3= review.reviewHeader
+            h3= review.reviewBody

@@ -26,27 +26,10 @@ const bookshelfValidators = [
 
 router.post('/add', requireAuth, bookshelfValidators, csrfProtection, asyncHandler(async(req,res) => {
     const { userId } = req.session.auth;
-    // const bookshelfValidators = [
-    //     check("name")
-    //         .exists({ checkFalsy:true })
-    //         .withMessage("This bookshelf needs a name")
-    //         .custom((value) => {
-    //             return db.Bookshelf.findOne({ where: { name: value, userId } })
-    //               .then((bookshelf) => {
-    //                 if (bookshelf) {
-    //                   return Promise.reject('The provided Username is already in use by another account');
-    //                 }
-                    
-    // ];
-    // console.log( typeof userId );
     const { name } = req.body;
     const validatorErrors = validationResult(req);
     const duplicate = await db.Bookshelf.findAll({where: {name, userId}});
     const bookshelf = db.Bookshelf.build({ name, userId });
-
-    console.log(duplicate);
-    console.log('BS', bookshelf);
-
 
     if (validatorErrors.isEmpty() && !duplicate.length) {
         await bookshelf.save();
