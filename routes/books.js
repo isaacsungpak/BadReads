@@ -9,12 +9,17 @@ const { requireAuth } = require('../auth')
 const { check, validationResult } = require('express-validator')
 
 /* GET books. */
+
 router.get('/', asyncHandler(async (req, res) => {
+  let isLoggedIn = false;
+  if (req.session.auth) {
+    isLoggedIn = true;
+  }
   const books = await db.Book.findAll({
     // order: [['title', 'ASC']],
     // order: sequelize.random()
   })
-  res.render('books', { title: 'BadReads Books', books });
+  res.render('books', { title: 'BadReads Books', books, isLoggedIn });
 }))
 
 /* GET books id. */
