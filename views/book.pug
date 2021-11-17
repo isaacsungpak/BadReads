@@ -4,10 +4,22 @@ block content
     h1= book.title
     h2= book.Author.name
     h3= book.Genre.name
+    //- add stars
+    //- if book.Rating.value === 1
+    //-     //- display 1 star
+    //- if book.Rating.value === 2
+    //-     //- display 2 star
+    //- if book.Rating.value === 3
+    //-     //- display 3 star
+    //- if book.Rating.value === 4
+    //-     //- display 4 star
+    //- if book.Rating.value === 5
+        //- display 5 star
+    //- h4= book.Rating.value
     img(src=book.coverPhoto alt='test')
 
     if book.bookReviews.length
-        each review in reviews
-            h3= review.username
+        each review in book.bookReviews
+            //- h3= review.User.username
             h3= review.reviewHeader
             h3= review.reviewBody
