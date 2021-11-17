@@ -21,20 +21,22 @@ router.get('/', csrfProtection, asyncHandler(async (req, res) => {
 /* GET books id. */
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
   const bookId = req.params.id;
-  const reviews = await db.Review.findAll({
-    where: { bookId }
-  })
-  const book = await db.Book.findByPk(bookId, {
-    include: [
-      db.Author,
-      db.Genre,
-      {
-        model: db.User,
-        as: 'bookReviews'
-      }]
-  })
+  const book = await db.Book.findByPk(bookId, {include: [db.Author, db.Genre]});
+  const reviews = await db.Review.findAll({ where: { bookId }, include: db.User })
+  let newValue = 0;
+  const { userId } = req.session.auth;
+  const rating = await db.Rating.findAll({where: {userId, bookId}});
+  console.log("**************", rating)
+  if (rating) {
+    //update rating where userId has already rated
+    await db.Rating.update({value: newValue}, {where: {bookId: bookId}});
 
-  res.render('book', { title: 'Badbook', book, reviews });
+  } else {
+    //submit rating where user has not rated
+      await db.Rating.create({ value, userId, bookId });
+  }
+  res.render('book', { title: 'Badbook', book, reviews});
+
 }))
 // testing
 
@@ -100,24 +102,24 @@ router.post('/:id(\\d+)/bookshelves', requireAuth, csrfProtection, asyncHandler(
 }));
 
 
-router.get('/:id(\\d+)/ratings', requireAuth, csrfProtection, asyncHandler(async(req, res, next) => {
-  const bookId = req.params.id;
-  const book = await db.Book.findByPk(bookId, {include: [db.Author, db.Genre]});
-  const reviews = await db.Review.findAll({ where: { bookId }, include: db.User })
-  let newValue = 0;
-  const { userId } = req.session.auth;
-  const rating = await db.Rating.findAll({where: {userId, bookId}});
-  console.log("**************", rating)
-  if (rating) {
-    //update rating where userId has already rated
-    await db.Rating.update({value: newValue}, {where: {bookId: bookId}});
+// router.get('/:id(\\d+)/ratings', requireAuth, csrfProtection, asyncHandler(async(req, res, next) => {
+//   const bookId = req.params.id;
+//   const book = await db.Book.findByPk(bookId, {include: [db.Author, db.Genre]});
+//   const reviews = await db.Review.findAll({ where: { bookId }, include: db.User })
+//   let newValue = 0;
+//   const { userId } = req.session.auth;
+//   const rating = await db.Rating.findAll({where: {userId, bookId}});
+//   console.log("**************", rating)
+//   if (rating) {
+//     //update rating where userId has already rated
+//     await db.Rating.update({value: newValue}, {where: {bookId: bookId}});
 
-  } else {
-    //submit rating where user has not rated
-      await db.Rating.create({ value, userId, bookId });
-  }
-  res.render('book', { title: 'Badbook', book, reviews});
+//   } else {
+//     //submit rating where user has not rated
+//       await db.Rating.create({ value, userId, bookId });
+//   }
+//   res.render('book', { title: 'Badbook', book, reviews});
 
-}))
+// }))
 
 module.exports = router;
