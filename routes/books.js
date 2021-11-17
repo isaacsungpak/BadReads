@@ -1,19 +1,20 @@
-var express = require('express');
-var router = express.Router();
-const csrf = require('csurf')
-const csrfProtection = csrf({ cookie: true })
+const express = require('express');
+const router = express.Router();
 const db = require('../db/models');
 
-const { asyncHandler } = require('../utils');
+const { asyncHandler, csrfProtection } = require('../utils');
 
 
 /* GET books. */
-router.get('/', asyncHandler(async (req, res) => {
-  const books = await db.Book.findAll({
-    // order: [['title', 'ASC']],
-    // order: sequelize.random()
-  })
-  res.render('books', { title: 'BadReads Books', books });
+router.get('/', csrfProtection, asyncHandler(async (req, res) => {
+  const books = await db.Book.findAll({ include: db.Author })
+  if (req.session.auth) {
+    const { userId } = req.session.auth;
+    const bookshelves = await db.Bookshelf.findAll({ where: { userId } });
+    res.render('books', { title: 'BadReads Books', books, bookshelves, csrfProtection });
+  } else {
+    res.render('books', { title: 'BadReads Books', books, csrfProtection });
+  }
 }))
 
 /* GET books id. */
@@ -24,13 +25,12 @@ router.get('/:id(\\d+)', asyncHandler(async(req, res) => {
       db.Author,
       db.Genre,
       {
-          model: db.User,
-          as: 'bookReviews'
-        }]
-      })
-
-      res.render('book', {title: 'Badbook', book});
-    }))
+        model: db.User,
+        as: 'bookReviews'
+      }]
+    })
+    res.render('book', {title: 'Badbook', book});
+}))
 
 
 
