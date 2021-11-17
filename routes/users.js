@@ -4,7 +4,17 @@ const {csrfProtection, asyncHandler} = require('../utils');
 const { check, validationResult } = require('express-validator');
 const {loginUser, logoutUser} = require('../auth')
 const bcrypt = require('bcryptjs');
-const db = require('../db/models')
+const db = require('../db/models');
+const {requireAuth} = require('../auth');
+
+// home page
+// router.get('/', (req, res) => {
+//   const isLoggedIn = false;
+//   if(req.session.auth) {
+//     isLoggedIn = true;
+//   }
+//   res.render('layout', isLoggedIn);
+// })
 
 
 /* creating new user. */
