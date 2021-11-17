@@ -1,20 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const {csrfProtection, asyncHandler} = require('../utils');
+const { csrfProtection, asyncHandler } = require('../utils');
 const { check, validationResult } = require('express-validator');
-const {loginUser, logoutUser} = require('../auth')
+const { loginUser, logoutUser } = require('../auth')
 const bcrypt = require('bcryptjs');
 const db = require('../db/models');
-const {requireAuth} = require('../auth');
+const { requireAuth } = require('../auth');
 
-// home page
-// router.get('/', (req, res) => {
-//   const isLoggedIn = false;
-//   if(req.session.auth) {
-//     isLoggedIn = true;
-//   }
-//   res.render('layout', isLoggedIn);
-// })
+
 
 
 /* creating new user. */
@@ -41,7 +34,7 @@ const userValidators = [
     .withMessage("Last Name cannot be more than 50 characters long"),
 
   check('emailAddress')
-    .exists({ checkFalsy: true})
+    .exists({ checkFalsy: true })
     .withMessage("Please provide a valid email")
     .isLength({ max: 255 })
     .withMessage("Email cannot be more than 255 characters long")
@@ -59,7 +52,7 @@ const userValidators = [
   check('username')
     .exists({ checkFalsy: true })
     .withMessage("Please provide a username")
-    .isLength({ min: 6,  max: 50 })
+    .isLength({ min: 6, max: 50 })
     .withMessage("Username cannot be more than 50 characters long")
     .custom((value) => {
       return db.User.findOne({ where: { username: value } })
@@ -73,7 +66,7 @@ const userValidators = [
   check('password')
     .exists({ checkFalsy: true })
     .withMessage('Please provide a value for Password')
-    .isLength({min: 8, max: 50 })
+    .isLength({ min: 8, max: 50 })
     .withMessage('Password must be between 8 and 50 characters long')
     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/, 'g')
     .withMessage('Password must contain capital letter, number, and symbol'),
@@ -81,7 +74,7 @@ const userValidators = [
   check('confirmPassword')
     .exists({ checkFalsy: true })
     .withMessage('Please provide a value for Password')
-    .isLength({min: 8, max: 50 })
+    .isLength({ min: 8, max: 50 })
     .withMessage('Password must be between 8 and 50 characters long')
     .custom((value, { req }) => {
       if (value !== req.body.password) {
@@ -91,7 +84,7 @@ const userValidators = [
     })
 ]
 
-router.post('/register', userValidators, csrfProtection, asyncHandler(async(req,res,next) => {
+router.post('/register', userValidators, csrfProtection, asyncHandler(async (req, res, next) => {
   const { firstName, lastName, emailAddress, username, password } = req.body;
   const user = db.User.build({ firstName, lastName, emailAddress, username });
 
@@ -124,24 +117,24 @@ router.get('/login', csrfProtection, (req, res) => {
 
 const logInValidators = [
   check('username')
-    .exists({checkFalsy: true})
+    .exists({ checkFalsy: true })
     .withMessage("Please provide a username"),
   check('password')
     .exists({ checkFalsy: true })
     .withMessage("Please provide a password")
 ]
 
-router.post('/login', csrfProtection, logInValidators, asyncHandler(async(req, res) => {
-  const {username, password} = req.body
+router.post('/login', csrfProtection, logInValidators, asyncHandler(async (req, res) => {
+  const { username, password } = req.body
   let errors = [];
   const validatorErrors = validationResult(req);
-  if(validatorErrors.isEmpty()) {
+  if (validatorErrors.isEmpty()) {
     const user = await db.User.findOne({
       where: {
         username,
       }
     });
-    if(user !== null) {
+    if (user !== null) {
       const passwordMatch = await bcrypt.compare(password, user.hashedPassword.toString());
       if (passwordMatch) {
         loginUser(req, res, user)
@@ -156,8 +149,15 @@ router.post('/login', csrfProtection, logInValidators, asyncHandler(async(req, r
   } else {
     errors = validatorErrors.array().map((error) => error.msg)
   }
-  res.render('user-login', {title: 'Login', errors, username, csrfToken: req.csrfToken()});
+  
+  res.render('user-login', { title: 'Login', errors, username, csrfToken: req.csrfToken() });
 }));
+
+
+router.get('/logout', (req, res) => {
+  delete req.session.auth
+  req.session.save(() => res.redirect('/'))
+});
 
 
 module.exports = router;

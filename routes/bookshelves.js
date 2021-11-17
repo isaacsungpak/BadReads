@@ -6,7 +6,6 @@ const db = require('../db/models');
 const { requireAuth } = require('../auth');
 
 
-
 router.get('/', requireAuth, asyncHandler(async(req,res) => {
     const { userId } = req.session.auth;
     const bookshelves = await db.Bookshelf.findAll({ where: { userId }});
