@@ -9,16 +9,6 @@ const { requireAuth } = require('../auth');
 
 
 
-router.get('/', (req, res) => {
-  let isLoggedIn = false;
-  console.log(req.session.auth)
-  console.log(req.user)
-  if (req.session.auth) {
-    isLoggedIn = true;
-  }
-  res.render('layout', { isLoggedIn });
-})
-
 
 /* creating new user. */
 router.get('/register', csrfProtection, (req, res) => {
@@ -159,13 +149,14 @@ router.post('/login', csrfProtection, logInValidators, asyncHandler(async (req, 
   } else {
     errors = validatorErrors.array().map((error) => error.msg)
   }
+  
   res.render('user-login', { title: 'Login', errors, username, csrfToken: req.csrfToken() });
 }));
 
 
 router.get('/logout', (req, res) => {
   delete req.session.auth
-  res.redirect('/')
+  req.session.save(() => res.redirect('/'))
 });
 
 

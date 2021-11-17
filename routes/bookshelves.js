@@ -7,13 +7,9 @@ const { requireAuth } = require('../auth');
 
 
 router.get('/', requireAuth, asyncHandler(async(req,res) => {
-    let isLoggedIn = false;
-    if (req.session.auth) {
-      isLoggedIn = true;
-    }
     const { userId } = req.session.auth;
     const bookshelves = await db.Bookshelf.findAll({ where: { userId }});
-    res.render('bookshelves', { title: "Bookshelves", bookshelves, isLoggedIn });
+    res.render('bookshelves', { title: "Bookshelves", bookshelves });
 }));
 
 router.get('/add', requireAuth, csrfProtection, (req,res) => {

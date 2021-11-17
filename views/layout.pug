@@ -12,7 +12,7 @@ html
     .nav-bar
         a(href=`/`): h1.bad-reads Bad Reads
         a(href=`/bookshelves`): div.mybooks My Bookshelves
-        if isLoggedIn 
+        if locals.authenticated 
           a(href=`/users/logout`): div.logout \Logout/
           a(href=`/`): div.profilePic Picture
           a(href=`/`): div.name Name

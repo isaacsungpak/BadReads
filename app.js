@@ -40,17 +40,6 @@ app.use(session({
 })
 );
 
-// home page
-app.get('/', (req, res) => {
-  let isLoggedIn = false;
-  console.log(req.session.auth)
-  console.log(req.user)
-  if (req.session.auth) {
-    isLoggedIn = true;
-  }
-  res.render('layout', { isLoggedIn });
-})
-
 
 // create Session table if it doesn't already exist
 store.sync();

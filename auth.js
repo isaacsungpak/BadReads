@@ -30,6 +30,7 @@ const restoreUser = async(req, res, next) => {
 
 const logoutUser = (req, res) => {
     delete req.session.auth
+    req.session.save(() => res.redirect('/'))
 }
 
 const requireAuth = (req, res, next) => {
