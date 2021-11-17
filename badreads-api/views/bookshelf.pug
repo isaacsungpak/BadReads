@@ -2,3 +2,9 @@ extends layout.pug
 
 block content
     h2= bookshelf.name
+    form(method="post" action=`/bookshelves/delete/${bookshelf.id}`)
+        input(name="_csrf" type="hidden" value=csrfToken)
+        button Delete
+    form(method="get" action=`/bookshelves/edit/${bookshelf.id}`)
+        input(name="_csrf" type="hidden" value=csrfToken)
+        button Edit

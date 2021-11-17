@@ -26,29 +26,79 @@ const bookshelfValidators = [
 
 router.post('/add', requireAuth, bookshelfValidators, csrfProtection, asyncHandler(async(req,res) => {
     const { userId } = req.session.auth;
-    console.log( typeof userId );
+    // const bookshelfValidators = [
+    //     check("name")
+    //         .exists({ checkFalsy:true })
+    //         .withMessage("This bookshelf needs a name")
+    //         .custom((value) => {
+    //             return db.Bookshelf.findOne({ where: { name: value, userId } })
+    //               .then((bookshelf) => {
+    //                 if (bookshelf) {
+    //                   return Promise.reject('The provided Username is already in use by another account');
+    //                 }
+                    
+    // ];
+    // console.log( typeof userId );
     const { name } = req.body;
     const validatorErrors = validationResult(req);
+    const duplicate = await db.Bookshelf.findAll({where: {name, userId}});
     const bookshelf = db.Bookshelf.build({ name, userId });
 
-    if (validatorErrors.isEmpty()) {
+    console.log(duplicate);
+    console.log('BS', bookshelf);
+
+
+    if (validatorErrors.isEmpty() && !duplicate.length) {
         await bookshelf.save();
-        const shelf = await db.Bookshelf.findOne({ where: { userId, name } });
-        console.log(shelf);
+        const shelf = await db.Bookshelf.findOne({ where: { name, userId } });
+        console.log('shelf', shelf);
         res.redirect(`/bookshelves/${shelf.id}`);
+    } else if (duplicate.length) {
+        const errors = ["You already have a bookshelf with this name"];
+        res.render("add-bookshelf", { title: "Add a Bookshelf", bookshelf, csrfToken: req.csrfToken(), errors });
     } else {
         const errors = validatorErrors.array().map(e => e.msg);
         res.render("add-bookshelf", { title: "Add a Bookshelf", bookshelf, csrfToken: req.csrfToken(), errors });
     }
-}))
+}));
 
-router.get('/:id(\\d+)', requireAuth, asyncHandler(async(req,res,next) => {
+router.get('/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async(req,res,next) => {
     const bookshelfId = req.params.id;
     const { userId } = req.session.auth;
     const bookshelf = await db.Bookshelf.findByPk(bookshelfId);
 
-    if (bookshelf && userId === bookshelf.userId) res.render('bookshelf', { title: "Bookshelf", bookshelf });
+    if (bookshelf && userId === bookshelf.userId) res.render('bookshelf', { title: "Bookshelf", bookshelf, csrfToken: req.csrfToken()});
     else next();
+}));
+
+router.post('/delete/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async(req, res, next) => {
+    const bookshelfId = req.params.id;
+    const bookshelf = await db.Bookshelf.findByPk(bookshelfId);
+    try {
+        await bookshelf.destroy();
+    } catch(e) {
+        next(e);
+    }
+    res.redirect('/bookshelves');
+}));
+
+router.post('/edit/:id(\\d+)', requireAuth, bookshelfValidators, csrfProtection, asyncHandler(async(req, res, next) => {
+    const bookshelfId = req.params.id;
+    const bookshelf = await db.Bookshelf.findByPk(bookshelfId);
+    try {
+        await bookshelf.update({
+            name: req.body.name
+        });
+    } catch(e) {
+        next(e);
+    }
+    res.redirect('/bookshelves');
+}));
+
+router.get('/edit/:id(\\d+)', requireAuth, bookshelfValidators, csrfProtection, asyncHandler(async(req, res, next) => {
+    const bookshelfId = req.params.id;
+    const bookshelf = await db.Bookshelf.findByPk(bookshelfId);
+    res.render('bookshelf-edit', { title: "Edit Bookshelf", bookshelf, csrfToken: req.csrfToken()})
 }));
 
 module.exports = router;

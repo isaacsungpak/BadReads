@@ -1,0 +1,11 @@
+extends layout.pug
+
+include utils.pug
+
+block content
+    h2 Edit your Bookshelf
+    +validationErrorSummary(errors)
+    form(method="post" action=`/bookshelves/edit/${bookshelf.id}`)
+        +field("Name", "name", bookshelf.name)
+        input(name="_csrf" type="hidden" value=csrfToken)
+        button Edit
