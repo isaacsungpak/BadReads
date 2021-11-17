@@ -1,20 +1,21 @@
-var express = require('express');
-var router = express.Router();
-const csrf = require('csurf')
-const csrfProtection = csrf({ cookie: true })
+const express = require('express');
+const router = express.Router();
 const db = require('../db/models');
 
-const { asyncHandler } = require('../utils');
+const { asyncHandler, csrfProtection } = require('../utils');
 const { requireAuth } = require('../auth')
 const { check, validationResult } = require('express-validator')
 
 /* GET books. */
-router.get('/', asyncHandler(async (req, res) => {
-  const books = await db.Book.findAll({
-    // order: [['title', 'ASC']],
-    // order: sequelize.random()
-  })
-  res.render('books', { title: 'BadReads Books', books });
+router.get('/', csrfProtection, asyncHandler(async (req, res) => {
+  const books = await db.Book.findAll({ include: db.Author })
+  if (req.session.auth) {
+    const { userId } = req.session.auth;
+    const bookshelves = await db.Bookshelf.findAll({ where: { userId } });
+    res.render('books', { title: 'BadReads Books', books, bookshelves, csrfProtection });
+  } else {
+    res.render('books', { title: 'BadReads Books', books });
+  }
 }))
 
 /* GET books id. */
@@ -65,7 +66,6 @@ router.post('/:id(\\d+)/reviews/', requireAuth, reviewValidators, csrfProtection
   })
 
   const validatorErrors = validationResult(req)
-
 
   if (validatorErrors.isEmpty()) {
     await review.save()
