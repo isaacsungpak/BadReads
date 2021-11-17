@@ -107,6 +107,17 @@ router.post('/register', userValidators, csrfProtection, asyncHandler(async (req
   }
 }))
 
+router.post('/demo', csrfProtection, asyncHandler(async (req, res) => {
+  const user = await db.User.findOne({
+    where: {
+      username: "testUser",
+    }
+  });
+  loginUser(req, res, user)
+  res.redirect('/');
+}));
+
+
 router.get('/login', csrfProtection, (req, res) => {
   res.render('user-login', {
     title: 'Log In',
@@ -149,7 +160,7 @@ router.post('/login', csrfProtection, logInValidators, asyncHandler(async (req, 
   } else {
     errors = validatorErrors.array().map((error) => error.msg)
   }
-  
+
   res.render('user-login', { title: 'Login', errors, username, csrfToken: req.csrfToken() });
 }));
 

@@ -17,3 +17,6 @@ block content
             +field("Confirm Password", "confirmPassword", "", "password")
             input(name="_csrf" type="hidden" value=csrfToken)
             button Register
+        form(method="post" action="/users/demo")
+            input(name="_csrf" type="hidden" value=csrfToken)
+            button Demo User
