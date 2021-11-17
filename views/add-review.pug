@@ -1,0 +1,12 @@
+extends layout.pug
+
+include utils.pug
+
+block content
+    h2= title
+    +validationErrorSummary(errors)
+    form(method="post" action=`/books/${bookId}/reviews`)
+        +field("Review Title", "reviewHeader", review.reviewHeader)
+        +field("Review", "reviewBody", review.reviewBody, "textarea")
+        input(name="_csrf" type="hidden" value=csrfToken)
+        button Add

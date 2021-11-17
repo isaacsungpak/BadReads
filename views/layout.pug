@@ -10,6 +10,14 @@ html
     style
         include ../stylesheets/index.css
     .nav-bar
-        h1.bad-reads Bad Reads
-
+        a: h1.bad-reads Bad Reads
+        //- a: div .home 
+        //- a: div .mybooks
+        //- if isLoggedIn 
+        //-   a: div .login login
+        //-   a: div .profilePic picture
+        //-   a: div .name name
+        //- else 
+        //-   a: div .logout logout
+        //-   a: div .register register
     block content
