@@ -18,8 +18,9 @@ block content
     //- h4= book.Rating.value
     img(src=book.coverPhoto alt='test')
 
-    if book.bookReviews.length
-        each review in book.bookReviews
-            //- h3= review.User.username
-            h3= review.reviewHeader
-            h3= review.reviewBody
+    if reviews.length
+        each review in reviews
+            .review
+                p.username= review.User.username
+                p.review-header= review.reviewHeader
+                p.review-body= review.reviewBody
