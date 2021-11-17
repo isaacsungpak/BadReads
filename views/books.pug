@@ -13,8 +13,8 @@ block content
             if bookshelves
               .add-to-shelf
                 p Bookshelf:
-                form(method="post" action="/booksOnBookshelves")
-                  select
+                form(method="post" action=`/books/${book.id}/bookshelves/`)
+                  select(name="bookshelf")
                     each bookshelf in bookshelves
                       option(value=bookshelf.id)= bookshelf.name
                   button Add

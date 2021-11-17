@@ -13,7 +13,7 @@ router.get('/', csrfProtection, asyncHandler(async (req, res) => {
     const bookshelves = await db.Bookshelf.findAll({ where: { userId } });
     res.render('books', { title: 'BadReads Books', books, bookshelves, csrfProtection });
   } else {
-    res.render('books', { title: 'BadReads Books', books, csrfProtection });
+    res.render('books', { title: 'BadReads Books', books });
   }
 }))
 
