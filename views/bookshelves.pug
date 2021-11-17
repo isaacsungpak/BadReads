@@ -1,8 +1,13 @@
 extends layout.pug
 
+include utils.pug
+
 block content
     h2 Bookshelves
+    +validationErrorSummary(errors)
     ul
         each bookshelf in bookshelves
             li: a(href=`/bookshelves/${bookshelf.id}`)= bookshelf.name
-    a(href='/bookshelves/add') New Bookshelf
+    form(method="get" action="/bookshelves/add")
+        input(name="_csrf" type="hidden" value=csrfToken)
+        button New Bookshelf
