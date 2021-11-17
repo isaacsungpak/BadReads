@@ -36,6 +36,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
 
   res.render('book', { title: 'Badbook', book, reviews });
 }))
+// testing
 
 
 router.get('/:id(\\d+)/reviews/add', requireAuth, csrfProtection, (req, res) => {
