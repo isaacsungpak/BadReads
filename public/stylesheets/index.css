@@ -76,7 +76,19 @@
     box-shadow: grey;
 }
 
-.imagen {
+.image {
     height: 200px;
     background-size: 0 !important;
 }
+
+.nameandpic {
+    grid-template-columns: 2fr 1fr
+}
+
+.name {
+    font-size: 12px;
+    font-weight: lighter;
+    transition-duration: 0.3s;
+}
+
+/* .image{ */

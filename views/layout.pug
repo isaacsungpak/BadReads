@@ -19,8 +19,8 @@ html
         if locals.authenticated
           a.nav(href=`/bookshelves`): div.mybooks.navtext My Bookshelves
           .nameandpic
-            a.nav(href=`/`): img.imagen(src='' alt='test')
-            a.nav(href=`/`): div.name.navtext Name
+            a.nav(href=`/bookshelves`): img.image(src='../public/user.png' alt='user')
+            a.nav(href=`/bookshelves`): div.name= user.username
           .buttons
             a(href=`/users/logout`): button.logbuttons Logout
         else
