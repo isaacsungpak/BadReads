@@ -12,14 +12,20 @@ html
     style
         include ../stylesheets/index.css
     .nav-bar
-        a.nav(href=`/`): h1.bad-reads <span class=bad>bad</span><span class=reads>reads</span>
+      .logo
+        a.nav(href=`/`): h1.bad-reads: span.bad bad#[span.reads reads]
+      .navtags
         a.nav(href=`/books`): div.mybooks.navtext Books
         if locals.authenticated
           a.nav(href=`/bookshelves`): div.mybooks.navtext My Bookshelves
-          a.nav(href=`/`): div.profilePic.navtext Picture
-          a.nav(href=`/`): div.name.navtext Name
-          a(href=`/users/logout`): button.logbutton(type="button") Logout
+          .nameandpic
+            a.nav(href=`/`): img.imagen(src='' alt='test')
+            a.nav(href=`/`): div.name.navtext Name
+          .buttons
+            a(href=`/users/logout`): button.logbuttons Logout
         else
-          a(href=`/users/login`): button.logbutton(type="button") Login
-          a(href=`/users/register`): button.logbutton(type="button") Register
+          .buttons
+            a(href=`/users/login`): button.logbuttons Login
+          .buttons
+            a(href=`/users/register`): button.logbuttons Register
     block content

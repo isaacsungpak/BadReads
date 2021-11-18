@@ -1,10 +1,33 @@
-.nav-bar {
+.nav-bar{
     display: flex;
-    justify-content:space-between;
+    margin: 25px;
+    justify-content: flex-end ;
+}
+
+.logo {
+    position: absolute;
+    left: 0px;
+    margin-bottom: 15px;
+    align-content: center;
+    justify-content: center;
+}
+
+.navtags {
+    display: flex;
+    margin-left: 10px;
+    /* text-align:end; */
+    /* justify-content: flex-end ; */
+}
+
+.navtext {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .bad {
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 100;
     font-size: 30px;
     color: rgba(0, 0, 0, 0.582)
@@ -22,9 +45,9 @@
 }
 
 
-.logbutton {
+.logbuttons {
     position: relative;
-    margin: 0 auto;
+    margin: 100 auto;
     padding: 0px;
     width: 80px;
     height: 25px;
@@ -33,14 +56,27 @@
     transition-duration: 0.3s;
 }
   
-.logbutton:hover {
+.logbuttons:hover {
     background-color:rgba(77, 77, 77, 0.384);
 }
 
+.buttons{
+    margin-bottom: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 .navtext {
+    font-weight: bold;
     transition-duration: 0.4s;
 }
 
 .navtext:hover {
-    font-weight: bold;
+    font-style:oblique;
+    box-shadow: grey;
+}
+
+.imagen {
+    height: 200px;
+    background-size: 0 !important;
 }
