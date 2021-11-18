@@ -2,21 +2,27 @@ extends layout.pug
 
 include utils.pug
 
+append head
+  link(rel="stylesheet" href="/stylesheets/books.css")
+
+
 block content
-  h1 Books
-    +validationErrorSummary(errors)
-    ul
+  +validationErrorSummary(errors)
+  .catalog
+    div.page-title Books
+    ul.book-list
       each book in books
         li
-          .book-element
-            a(href=`/books/${book.id}`)
-              img(src=book.coverPhoto alt='test')
-              h5= book.title
-              h6= book.Author.name
+          .book-card
+            .book-link
+              a(href=`/books/${book.id}`)
+                img.book-cover(src=book.coverPhoto alt='book-cover')
+                .book-title= book.title
+                .book-author= book.Author.name
             if bookshelves
-              .add-to-shelf
-                p Bookshelf:
-                form(method="post" action=`/books/${book.id}/bookshelves`)
+              .add-to-bookshelf
+                div Bookshelf:
+                form.add-form(method="post" action=`/books/${book.id}/bookshelves`)
                   select(name="bookshelfId")
                     each bookshelf in bookshelves
                       option(value=bookshelf.id)= bookshelf.name
