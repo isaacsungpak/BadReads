@@ -30,7 +30,6 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
   }
   res.render('book', { title: 'Badbook', book, reviews, userId});
 }));
-// testing
 
 
 router.get('/:id(\\d+)/reviews/add', requireAuth, csrfProtection, (req, res) => {
@@ -104,8 +103,8 @@ router.get('/:id(\\d+)/ratings', csrfProtection, asyncHandler(async(req, res, ne
 
   }
   const ratings = await db.Rating.findAll({ where: { bookId }});
-    let average = ratings.reduce(function (sum, value) {
-      return sum + value;
+    let average = ratings.reduce(function (sum, rating) {
+      return sum + rating.value;
     }, 0) / (ratings.length ? ratings.length : 1);
 
   res.send({userRating, average})
@@ -116,6 +115,10 @@ router.post('/:id(\\d+)/ratings', requireAuth, asyncHandler(async(req, res, next
   const {userId} = req.session.auth;
   const bookId = req.params.id;
 
+  // if (!userId) {
+  //   res.redirect('/users/login');
+  // }
+
   let rating = await db.Rating.findOne({where: {userId, bookId}})
   let {value} = req.body;
   if (rating) {
@@ -123,7 +126,12 @@ router.post('/:id(\\d+)/ratings', requireAuth, asyncHandler(async(req, res, next
   } else {
     await db.Rating.create({value, userId, bookId})
   }
-
+  const ratings = await db.Rating.findAll({ where: { bookId }});
+  let average = ratings.reduce(function (sum, rating) {
+    return sum + rating.value;
+  }, 0) / (ratings.length);
+  console.log(average);
+  res.send({average})
 }));
 
 
