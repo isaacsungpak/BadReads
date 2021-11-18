@@ -10,3 +10,6 @@ block content
             +field("Password", "password", "", "password")
             input(name="_csrf" type="hidden" value=csrfToken)
             button Log In
+        form(method="post" action="/users/demo")
+            input(name="_csrf" type="hidden" value=csrfToken)
+            button Demo User
