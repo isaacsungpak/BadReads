@@ -4,17 +4,30 @@ block content
     h1= book.title
     h2= book.Author.name
     h3= book.Genre.name
-    //- add stars
-    //- if book.Rating.value === 1
-    //-     //- display 1 star
-    //- if book.Rating.value === 2
-    //-     //- display 2 star
-    //- if book.Rating.value === 3
-    //-     //- display 3 star
-    //- if book.Rating.value === 4
-    //-     //- display 4 star
-    //- if book.Rating.value === 5
-        //- display 5 star
+    .rating
+        if !locals.authenticated
+            input#star5d(class="star-disabled" type='radio' disabled='true' name='rating' value='5')
+            label(for='star5' title='text') 5 stars
+            input#star4d(class="star-disabled" type='radio' disabled='true' name='rating' value='4')
+            label(for='star4' title='text') 4 stars
+            input#star3d(class="star-disabled" type='radio' disabled='true' name='rating' value='3')
+            label(for='star3' title='text') 3 stars
+            input#star2d(class="star-disabled" type='radio' disabled='true' name='rating' value='2')
+            label(for='star2' title='text') 2 stars
+            input#star1d(class="star-disabled" type='radio' disabled='true' name='rating' value='1')
+            label(for='star1' title='text') 1 star
+
+        if locals.authenticated
+            input#star5(class="star" type='radio' name='rating' value='5')
+            label(for='star5' title='text') 5 stars
+            input#star4(class="star" type='radio' name='rating' value='4')
+            label(for='star4' title='text') 4 stars
+            input#star3(class="star" type='radio' name='rating' value='3')
+            label(for='star3' title='text') 3 stars
+            input#star2(class="star" type='radio' name='rating' value='2')
+            label(for='star2' title='text') 2 stars
+            input#star1(class="star" type='radio' name='rating' value='1')
+            label(for='star1' title='text') 1 star
     //- h4= book.Rating.value
     img(src=book.coverPhoto alt='test')
 
@@ -24,3 +37,4 @@ block content
                 p.username= review.User.username
                 p.review-header= review.reviewHeader
                 p.review-body= review.reviewBody
+    script(src='/javascripts/ratings.js' type='module')
