@@ -1,0 +1,12 @@
+extends layout.pug
+
+include utils.pug
+
+block content
+    h2 Edit your Bookshelf
+    +validationErrorSummary(errors)
+    form(method="post" action=`/books/${bookId}/reviews/edit/${bookId}`)
+        +field("Review Title", "reviewHeader", review.reviewHeader)
+        +field("Review", "reviewBody", review.reviewBody, "textarea")
+        input(name="_csrf" type="hidden" value=csrfToken)
+        button Edit

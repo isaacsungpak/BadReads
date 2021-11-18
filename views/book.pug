@@ -37,4 +37,18 @@ block content
                 p.username= review.User.username
                 p.review-header= review.reviewHeader
                 p.review-body= review.reviewBody
+
+            if userId  === review.userId
+                form(method="get" action=`/books/${bookId}/reviews/edit/${bookId}`)
+                    input(name="_csrf" type="hidden" value=csrfToken)
+                    button Edit
+
+                form(method="post" action=`/books/${bookId}/reviews/delete/${bookId}`)
+                    input(name="_csrf" type="hidden" value=csrfToken)
+                    button Delete
+    if locals.authenticated
+    form(method="get" action=`/books/${bookId}/reviews/add/`)
+        input(name="_csrf" type="hidden" value=csrfToken)
+        button Add Review
+
     script(src='/javascripts/ratings.js' type='module')
