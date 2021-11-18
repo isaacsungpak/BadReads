@@ -24,20 +24,22 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
   const book = await db.Book.findByPk(bookId, {include: [db.Author, db.Genre]});
   const reviews = await db.Review.findAll({ where: { bookId }, include: db.User })
   let newValue = 0;
-  const { userId } = req.session.auth;
-  const rating = await db.Rating.findAll({where: {userId, bookId}});
-  console.log("**************", rating)
-  if (rating) {
-    //update rating where userId has already rated
-    await db.Rating.update({value: newValue}, {where: {bookId: bookId}});
-
-  } else {
-    //submit rating where user has not rated
-      await db.Rating.create({ value, userId, bookId });
+  if (req.session.auth) {
+    const { userId } = req.session.auth;
+    const rating = await db.Rating.findAll({where: {userId, bookId}});
+    // const avgRating = loop through rating values?
+    console.log("**************", rating)
+    if (rating) {
+      //update rating where userId has already rated
+      await db.Rating.update({value: newValue}, {where: {bookId: bookId}});
+  
+    } else {
+      //submit rating where user has not rated
+        await db.Rating.create({ value, userId, bookId });
+    }
   }
   res.render('book', { title: 'Badbook', book, reviews});
-
-}))
+}));
 // testing
 
 
