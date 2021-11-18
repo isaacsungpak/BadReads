@@ -1,3 +1,46 @@
-h1 {
-    color: #555555;
+.nav-bar {
+    display: flex;
+    justify-content:space-between;
+}
+
+.bad {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    font-weight: 100;
+    font-size: 30px;
+    color: rgba(0, 0, 0, 0.582)
+}
+
+.reads {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;  
+    font-size: 30px;
+    color: rgba(36, 36, 36, 0.842);
+}
+
+.nav {
+    text-decoration: none;
+}
+
+
+.logbutton {
+    position: relative;
+    margin: 0 auto;
+    padding: 0px;
+    width: 80px;
+    height: 25px;
+    vertical-align: middle;
+    border-radius: 8px;
+    transition-duration: 0.3s;
+}
+  
+.logbutton:hover {
+    background-color:rgba(77, 77, 77, 0.384);
+}
+
+.navtext {
+    transition-duration: 0.4s;
+}
+
+.navtext:hover {
+    font-weight: bold;
 }
