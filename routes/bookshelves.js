@@ -47,11 +47,29 @@ router.post('/add', requireAuth, bookshelfValidators, csrfProtection, asyncHandl
 router.get('/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async(req,res) => {
     const bookshelfId = req.params.id;
     const { userId } = req.session.auth;
-    const bookshelf = await db.Bookshelf.findByPk(bookshelfId, {include: {model: db.Book, include: [db.Author, db.Genre]} });
+    const bookshelf = await db.Bookshelf.findByPk(bookshelfId, { include: {model: db.Book, include: [db.Author, db.Genre]} });
 
     if (bookshelf && userId === bookshelf.userId) {
-        console.log(bookshelf.Books)
-        res.render('bookshelf', { title: "Bookshelf", bookshelf, csrfToken: req.csrfToken(), books: bookshelf.Books });
+        const booksWithDetails = new Array(bookshelf.Books.length);
+        for (let i = 0; i < bookshelf.Books.length; i++) {
+            const longDate = bookshelf.Books[i].BooksOnBookshelf.createdAt;
+            const month = longDate.getMonth() + 1;
+            const day = longDate.getDate();
+            const year = longDate.getYear() + 1900;
+
+            const bookId = bookshelf.Books[i].id;
+            const allRatings = await db.Rating.findAll({ where: {bookId} });
+            const avgRating = allRatings.reduce((sum, e) => (sum + e.value), 0) / (allRatings.length ? allRatings.length : 0);
+            const userRating = await db.Rating.findOne({ where: { userId, bookId } });
+
+            booksWithDetails[i] = {
+                book: bookshelf.Books[i],
+                dateAdded: `${month}/${day}/${year}`,
+                avgRating: avgRating ? avgRating.toFixed(2) : "Not yet rated",
+                userRating: userRating ? userRating.value : "Not yet rated"
+            }
+        }
+        res.render('bookshelf', { title: "Bookshelf", bookshelf, csrfToken: req.csrfToken(), books: booksWithDetails });
     } else {
         const errors = [];
 
