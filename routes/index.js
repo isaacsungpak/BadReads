@@ -8,11 +8,15 @@ const db = require('../db/models')
 
 /* GET home page. */
 router.get('/', async(req, res, next) => {
-  const books = await db.Book.findAll({
-    order: [['title', 'ASC']],
-    // includes: db.Review
-  })
-  res.render('index', { title: 'BadReads Home', books });
+const reviews = await db.Review.findAll({
+  limit: 10,
+  order: [['updatedAt', 'DESC']],
+  include: [db.Book, db.User ]
+})
+
+  res.render('index', { title: 'BadReads Home', reviews });
 });
+
+
 
 module.exports = router;

@@ -8,4 +8,7 @@ append head
 
 block content
   h1= title
+  each review in reviews
+    p= review.reviewBody
+    p= review.Book.title
   p Welcome to your Project Skeleton
