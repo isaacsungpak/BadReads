@@ -6,7 +6,7 @@
 
 .logo {
     position: absolute;
-    left: 0px;
+    left: 20px;
     margin-bottom: 15px;
     align-content: center;
     justify-content: center;
@@ -14,9 +14,6 @@
 
 .navtags {
     display: flex;
-    margin-left: 10px;
-    /* text-align:end; */
-    /* justify-content: flex-end ; */
 }
 
 .navtext {
@@ -62,6 +59,7 @@
 
 .buttons{
     margin-bottom: 20px;
+    margin-top: 5px;
     margin-left: 10px;
     margin-right: 10px;
 }
@@ -69,6 +67,7 @@
 .navtext {
     font-weight: bold;
     transition-duration: 0.4s;
+    margin-top: 10px;
 }
 
 .navtext:hover {
@@ -76,19 +75,23 @@
     box-shadow: grey;
 }
 
-.image {
-    height: 200px;
-    background-size: 0 !important;
-}
-
 .nameandpic {
-    grid-template-columns: 2fr 1fr
+    display: inline-block;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .name {
     font-size: 12px;
     font-weight: lighter;
     transition-duration: 0.3s;
+    text-align: center;
 }
 
-/* .image{ */
+.image {
+    width: 25px;
+    height: 25px;
+}
