@@ -43,6 +43,7 @@
 
 
 .logbuttons {
+    cursor: pointer;
     position: relative;
     margin: 100 auto;
     padding: 0px;

@@ -1,0 +1,98 @@
+.main {
+  display:grid;
+  grid-template-columns: 300px 1fr
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* grid-template-rows: 300px 100px; */
+  /* grid-template-areas: 
+  "img title"
+  "img author"
+  "img genre"
+  "img rating"
+  "img author bio"; */
+}
+
+.book-card {
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+}
+
+.text {
+  display:flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items:flex-start;
+}
+
+.title {
+  line-height: 1.5;
+  font-family: Copernicus, "Libre Baskerville", Georgia, serif;
+  font-weight: bold;
+  text-overflow: ellipsis;
+  font-size: 30px;
+}
+
+.author{
+  line-height: 1.5;
+  font-family: Copernicus, "Libre Baskerville", Georgia, serif;
+  font-weight: 300;
+  text-overflow: ellipsis;
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+.ratetext{
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: 12px;
+}
+
+.authorbio{
+  line-height: 1.5;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  text-overflow: ellipsis;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+.genre{
+  font-weight: bold;
+  font-size: 15px;
+  padding-bottom: 3px;
+  border-bottom: solid green 2px  
+
+  
+}
+
+.rating{
+  margin-left: 0px;
+}
+
+
+.book-cover {
+  grid-column: 1 / 3;
+  grid-row: 1;
+  margin-left: 25px;
+  margin-right: 50px;
+  width: 225px;
+  height: 330px;
+  display: block;
+  border-top-right-radius: 6%;
+  border-bottom-right-radius: 6%;
+  box-shadow: 0 2px 8px 0 rgb(0 0 0 / 20%);
+}
+
+
+/* .book-title {
+  line-height: 1.5;
+  font-family: Copernicus, "Libre Baskerville", Georgia, serif;
+  font-weight: 600;
+  text-overflow: ellipsis;
+}
+
+.book-author {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+} */
