@@ -69,8 +69,9 @@ td {
 
 .book-cover {
     display: block;
-    width: 50px;
-    object-fit: fill;
+    width: 75px;
+    height: 125px;
+    object-fit: cover;
     border-top-right-radius: 6%;
     border-bottom-right-radius: 6%;
     box-shadow: 0 2px 8px 0 rgb(0 0 0 / 20%);

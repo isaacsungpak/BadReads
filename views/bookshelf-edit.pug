@@ -2,6 +2,8 @@ extends layout.pug
 
 include utils.pug
 
+append head
+
 block content
     h2 Edit your Bookshelf
     +validationErrorSummary(errors)
