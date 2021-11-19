@@ -7,6 +7,10 @@ a {
   color: #00B7FF;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -53,11 +57,11 @@ h1 {
   content: '★ ';
 }
 .rating > input:checked ~ label {
-  color: #ffc700;    
+  color: #ffc700;
 }
 .rating:not(:checked) > label:hover,
 .rating:not(:checked) > label:hover ~ label {
-  color: #deb217;  
+  color: #deb217;
 }
 .rating > input:checked + label:hover,
 .rating > input:checked + label:hover ~ label,
