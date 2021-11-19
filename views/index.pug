@@ -8,7 +8,23 @@ append head
 
 block content
   h1= title
-  each review in reviews
-    p= review.reviewBody
-    p= review.Book.title
+  div.main-container
+    section.column-1 Suggested Books:
+      br
+      br
+      div.random-book
+        img.random-book-cover(src=`${randomBook.coverPhoto}`)
+      p.suggested-book-title= randomBook.title
+      br
+      button.next-book-btn Next Book
+    section.column-2
+      each review in reviews
+        div.review-container
+          div.book-cover
+            img(src=`${review.Book.coverPhoto}`) 
+          div.text-container
+            p.user <span>#{review.User.username}</span> reviewed <span>#{review.Book.title}</span>:
+            br
+            p.review= review.reviewBody
+    
   p Welcome to your Project Skeleton

@@ -82,7 +82,7 @@ window.addEventListener("DOMContentLoaded", () => {
     
     
             //get
-            fetch(`/books/${bookId}/ratings`).then(res => res.json()).then(res => console.log(res));
+            fetch(`/books/${bookId}/ratings`).then(res => res.json()).then(res => console.log('***res***', res));
     
     
        
