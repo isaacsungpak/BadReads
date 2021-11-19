@@ -8,7 +8,7 @@ const { check, validationResult } = require('express-validator')
 
 /* GET books. */
 router.get('/', csrfProtection, asyncHandler(async (req, res) => {
-  const books = await db.Book.findAll({ include: db.Author })
+  const books = await db.Book.findAll({ include: db.Author });
   if (req.session.auth) {
     const { userId } = req.session.auth;
     const bookshelves = await db.Bookshelf.findAll({ where: { userId } });
@@ -16,7 +16,26 @@ router.get('/', csrfProtection, asyncHandler(async (req, res) => {
   } else {
     res.render('books', { title: 'BadReads Books', books });
   }
+  
 }))
+
+router.get('/random', async(req, res, next) => {
+  //necessary inclusion from index.js for re-render?
+  // const reviews = await db.Review.findAll({
+  //   limit: 10,
+  //   order: [['updatedAt', 'DESC']],
+  //   include: [db.Book, db.User ]
+  // }); 
+  //logic for random book suggestions in index.js
+  let randomNum= Math.random();
+  const books = await db.Book.findAll();
+  const randomBookId = Math.round((books.length * randomNum));
+  const nextRandomBook = await db.Book.findOne({
+        where: {id: randomBookId}
+      });
+      //responding to fetch in index.js
+      res.send({nextRandomBook});
+    });
 
 /* GET books id. */
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
