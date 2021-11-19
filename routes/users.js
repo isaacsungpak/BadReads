@@ -170,5 +170,4 @@ router.get('/logout', (req, res) => {
   req.session.save(() => res.redirect('/'))
 });
 
-
 module.exports = router;

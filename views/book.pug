@@ -36,13 +36,24 @@ block content
                     label(for='star2' title='text') 2 stars
                     input#star1.star(type='radio' name='rating' value='1')
                     label(for='star1' title='text') 1 star
+
             p.ratetext Rate this book
-    
+            if average === 1
+                p.ratetext  ★ avg rating
+            if average === 2
+                p.ratetext  ★★ avg rating
+            if average === 3
+                p.ratetext  ★★★ avg rating
+            if average === 4
+                p.ratetext  ★★★★ avg rating
+            if average === 5
+                p.ratetext  ★★★★★ avg rating
+
             if locals.authenticated && !userReviews.length
                 form(method="post" action=`/books/${bookId}/reviews/add/`)
                     input(name="_csrf" type="hidden" value=csrfToken)
                     button.addreview.button Write a Review
-        
+
 
         .text
             .title= book.title
@@ -75,5 +86,3 @@ block content
                                                 input(name="_csrf" type="hidden" value=csrfToken)
                                                 button.dropdown-content Delete
                                             script(src='/javascripts/ratings.js' type='module')
-    
-

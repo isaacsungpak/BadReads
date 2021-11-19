@@ -42,6 +42,10 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
   const bookId = req.params.id;
   const book = await db.Book.findByPk(bookId, { include: [db.Author, db.Genre] });
   const reviews = await db.Review.findAll({ where: { bookId }, include: db.User })
+  const ratings = await db.Rating.findAll({ where: { bookId } })
+  let average = ratings.reduce(function (sum, rating) {
+    return sum + rating.value;
+  }, 0) / (ratings.length);
 
   let userReviews;
   let userId;
@@ -54,8 +58,7 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
       }
     })
   }
-  
-  res.render('book', { title: 'Badbook', book, reviews, userReviews, userId, bookId, csrfToken: req.csrfToken() });
+  res.render('book', { title: 'Badbook', book, reviews, userReviews, userId, bookId, ratings, average, csrfToken: req.csrfToken() });
 }));
 // get -> post
 router.post('/:id(\\d+)/reviews/add', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
