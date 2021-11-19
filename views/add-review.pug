@@ -2,6 +2,8 @@ extends layout.pug
 
 include utils.pug
 
+append head
+  link(rel="stylesheet" href="/stylesheets/nav-bar.css")
 block content
     h2= title
     +validationErrorSummary(errors)
