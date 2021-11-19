@@ -1,22 +1,49 @@
 extends layout.pug
 
+append head
+  link(rel="stylesheet" href="/stylesheets/bookshelf.css")
+
 block content
-    h2= bookshelf.name
-    if books
-        each book in books
-            li
-                .book-element
-                    a(href=`/books/${book.id}`)
-                        img(src=book.coverPhoto alt='Book Cover')
-                        h5= book.title
-                        h6= book.Author.name
-                    .remove-book
-                        form(method="post" action=`/bookshelves/${bookshelf.id}/books/${book.id}/delete`)
-                            input(name="_csrf" type="hidden" value=csrfToken)
-                            button Remove
-    form(method="get" action=`/bookshelves/edit/${bookshelf.id}`)
-        input(name="_csrf" type="hidden" value=csrfToken)
-        button Edit
-    form(method="post" action=`/bookshelves/delete/${bookshelf.id}`)
-        input(name="_csrf" type="hidden" value=csrfToken)
-        button Delete
+    .catalog
+        .bookshelf-head
+            div.page-title= bookshelf.name
+            .alter-bookshelf
+                form(method="get" action=`/bookshelves/edit/${bookshelf.id}`)
+                    input(name="_csrf" type="hidden" value=csrfToken)
+                    button Edit
+                form(method="post" action=`/bookshelves/delete/${bookshelf.id}`)
+                    input(name="_csrf" type="hidden" value=csrfToken)
+                    button Delete
+
+        table.bookshelf-table
+            thead
+                tr
+                    th #
+                    th cover
+                    th title
+                    th author
+                    th avg rating
+                    th rating
+                    th date added
+                    th
+            tbody
+                if books
+                    each book in books
+                        tr
+                            td
+                                div.book-order= book.orderNum
+                            td
+                                a(href=`/books/${book.book.id}`)
+                                    img.book-cover(src=book.book.coverPhoto alt='book-cover')
+                            td
+                                a.book-title(href=`/books/${book.book.id}`)= book.book.title
+                            td
+                                div.book-author(href=`/books/${book.book.id}`)= book.book.Author.name
+                            td.avg-rating= book.avgRating
+                            td.user-rating= book.userRating
+                            td.date-added= book.dateAdded
+                            td
+                                div.remove-book
+                                    form(method="post" action=`/bookshelves/${bookshelf.id}/books/${book.book.id}/delete`)
+                                        input(name="_csrf" type="hidden" value=csrfToken)
+                                        button Remove

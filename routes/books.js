@@ -8,7 +8,7 @@ const { check, validationResult } = require('express-validator')
 
 /* GET books. */
 router.get('/', csrfProtection, asyncHandler(async (req, res) => {
-  const books = await db.Book.findAll({ include: db.Author })
+  const books = await db.Book.findAll({ include: db.Author });
   if (req.session.auth) {
     const { userId } = req.session.auth;
     const bookshelves = await db.Bookshelf.findAll({ where: { userId } });
@@ -16,27 +16,57 @@ router.get('/', csrfProtection, asyncHandler(async (req, res) => {
   } else {
     res.render('books', { title: 'BadReads Books', books });
   }
+  
 }))
 
+router.get('/random', async(req, res, next) => {
+  //necessary inclusion from index.js for re-render?
+  // const reviews = await db.Review.findAll({
+  //   limit: 10,
+  //   order: [['updatedAt', 'DESC']],
+  //   include: [db.Book, db.User ]
+  // }); 
+  //logic for random book suggestions in index.js
+  let randomNum= Math.random();
+  const books = await db.Book.findAll();
+  const randomBookId = Math.round((books.length * randomNum));
+  const nextRandomBook = await db.Book.findOne({
+        where: {id: randomBookId}
+      });
+      //responding to fetch in index.js
+      res.send({nextRandomBook});
+    });
+
 /* GET books id. */
-router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
+router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
   const bookId = req.params.id;
   const book = await db.Book.findByPk(bookId, { include: [db.Author, db.Genre] });
   const reviews = await db.Review.findAll({ where: { bookId }, include: db.User })
-  let userId = req.session.auth;
+  let { userId } = req.session.auth;
+  const userReviews = await db.Review.findAll({
+    where: {
+      bookId,
+      userId
+    }
+  })
+  console.log(userReviews)
   let newValue = 0;
   if (req.session.auth) {
     userId = req.session.auth.userId
   }
-  res.render('book', { title: 'Badbook', book, reviews, userId, bookId });
+  res.render('book', { title: 'Badbook', book, reviews, userReviews, userId, bookId, csrfToken: req.csrfToken() });
 }));
-
-
-router.get('/:id(\\d+)/reviews/add', requireAuth, csrfProtection, (req, res) => {
+// get -> post
+router.post('/:id(\\d+)/reviews/add', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
   const bookId = req.params.id;
+  const book = await db.Book.findByPk(bookId, { include: [db.Author, db.Genre] });
   const review = db.Review.build();
-  res.render('add-review', { title: "Add a Review", review, csrfToken: req.csrfToken(), bookId });
-});
+  const { userId } = req.session.auth
+  const reviews = await db.Review.findAll({ where: { bookId }, include: db.User })
+  res.render('add-review', { title: "Add a Review", review, csrfToken: req.csrfToken(), bookId, reviews, book });
+
+
+}));
 
 const reviewValidators = [
   check("reviewHeader")
@@ -48,7 +78,6 @@ const reviewValidators = [
 ];
 
 router.post('/:id(\\d+)/reviews/', requireAuth, reviewValidators, csrfProtection, asyncHandler(async (req, res) => {
-
   const bookId = req.params.id;
   const { userId } = req.session.auth
   const { reviewBody, reviewHeader } = req.body
@@ -75,7 +104,8 @@ router.post('/:id(\\d+)/reviews/', requireAuth, reviewValidators, csrfProtection
   }
 }))
 // ----
-router.get('/:id(\\d+)/reviews/edit/:id(\\d+)', requireAuth, reviewValidators, csrfProtection, asyncHandler(async (req, res, next) => {
+router.get('/:id(\\d+)/reviews/edit/:reviewId(\\d+)', requireAuth, reviewValidators, csrfProtection, asyncHandler(async (req, res, next) => {
+  const reviewId = req.params.reviewId
   const bookId = req.params.id;
   const { userId } = req.session.auth
   const review = await db.Review.findOne({
@@ -84,10 +114,10 @@ router.get('/:id(\\d+)/reviews/edit/:id(\\d+)', requireAuth, reviewValidators, c
       userId
     }
   });
-  res.render('review-edit', { title: "Edit Review", userId, bookId, review, csrfToken: req.csrfToken() })
+  res.render('review-edit', { title: "Edit Review", userId, bookId, reviewId, review, csrfToken: req.csrfToken() })
 }));
 
-router.post('/:id(\\d+)/reviews/edit/:id(\\d+)', requireAuth, reviewValidators, csrfProtection, asyncHandler(async (req, res, next) => {
+router.post('/:id(\\d+)/reviews/edit/:reviewId(\\d+)', requireAuth, reviewValidators, csrfProtection, asyncHandler(async (req, res, next) => {
   const bookId = req.params.id;
   const { userId } = req.session.auth
   const review = await db.Review.findOne({
@@ -108,16 +138,16 @@ router.post('/:id(\\d+)/reviews/edit/:id(\\d+)', requireAuth, reviewValidators, 
 }));
 
 // require csrf token?
-router.post('/:id(\\d+)/reviews/delete/:id(\\d+)', requireAuth, asyncHandler(async (req, res, next) => {
+router.post('/:id(\\d+)/reviews/delete/:reviewId(\\d+)', requireAuth, asyncHandler(async (req, res, next) => {
   const bookId = req.params.id;
   const { userId } = req.session.auth
   const review = await db.Review.findOne({
     where: {
       bookId,
-      userId
+      userId,
     }
   });
-  console.log(review)
+
   try {
     await review.destroy();
   } catch (e) {

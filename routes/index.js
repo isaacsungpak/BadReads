@@ -12,10 +12,18 @@ const reviews = await db.Review.findAll({
   limit: 10,
   order: [['updatedAt', 'DESC']],
   include: [db.Book, db.User ]
-})
-
-  res.render('index', { title: 'BadReads Home', reviews });
+}); 
+//logic for random book suggestions in index.js
+let randomNum= Math.random();
+const books = await db.Book.findAll();
+const randomBookId = Math.round((books.length * randomNum));
+const randomBook = await db.Book.findOne({
+      where: {id: randomBookId}
+    });
+    res.render('index', { title: 'BadReads Home', reviews, randomBook});
 });
+
+
 
 
 
