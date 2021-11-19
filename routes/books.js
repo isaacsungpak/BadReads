@@ -16,26 +16,26 @@ router.get('/', csrfProtection, asyncHandler(async (req, res) => {
   } else {
     res.render('books', { title: 'BadReads Books', books });
   }
-  
+
 }))
 
-router.get('/random', async(req, res, next) => {
+router.get('/random', async (req, res, next) => {
   //necessary inclusion from index.js for re-render?
   // const reviews = await db.Review.findAll({
   //   limit: 10,
   //   order: [['updatedAt', 'DESC']],
   //   include: [db.Book, db.User ]
-  // }); 
+  // });
   //logic for random book suggestions in index.js
-  let randomNum= Math.random();
+  let randomNum = Math.random();
   const books = await db.Book.findAll();
   const randomBookId = Math.round((books.length * randomNum));
   const nextRandomBook = await db.Book.findOne({
-        where: {id: randomBookId}
-      });
-      //responding to fetch in index.js
-      res.send({nextRandomBook});
-    });
+    where: { id: randomBookId }
+  });
+  //responding to fetch in index.js
+  res.send({ nextRandomBook });
+});
 
 /* GET books id. */
 router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
@@ -197,7 +197,7 @@ router.get('/:id(\\d+)/ratings', csrfProtection, asyncHandler(async (req, res, n
 }));
 
 router.post('/:id(\\d+)/ratings', requireAuth, asyncHandler(async (req, res, next) => {
-  console.log('reqbody', req.body);
+  console.log('reqbodyyyyyy', req.body);
   const { userId } = req.session.auth;
   const bookId = req.params.id;
 
@@ -206,6 +206,7 @@ router.post('/:id(\\d+)/ratings', requireAuth, asyncHandler(async (req, res, nex
   // }
 
   let rating = await db.Rating.findOne({ where: { userId, bookId } })
+  console.log(rating, 'ratinggggg')
   let { value } = req.body;
   if (rating) {
     await rating.update({ value })

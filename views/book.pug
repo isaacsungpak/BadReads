@@ -4,8 +4,10 @@ include utils.pug
 
 append head
   link(rel="stylesheet" href="/stylesheets/book.css")
+  script(src='/javascripts/ratings.js' type='module')
 
 block content
+
     .main
         .book-card
             img.book-cover(src=book.coverPhoto alt='test')
@@ -61,7 +63,7 @@ block content
             .authorinfo
                 .divauthorinfo
                     .authorpicdiv
-                        img.authorpic(src=book.Author.photo alt='test')  
+                        img.authorpic(src=book.Author.photo alt='test')
                     .author= book.Author.name
                 .summary= book.summary
             .genre= book.Genre.name
@@ -86,4 +88,3 @@ block content
                                             form(method="post" action=`/books/${bookId}/reviews/delete/${bookId}`)
                                                 input(name="_csrf" type="hidden" value=csrfToken)
                                                 button.dropdown-content Delete
-                                            script(src='/javascripts/ratings.js' type='module')
