@@ -202,6 +202,9 @@ module.exports = {
         authorId: 11,
         genreId: 6,
         coverPhoto: 'https://images-na.ssl-images-amazon.com/images/I/91Q5dCjc2KL.jpg',
+        summary: `While in Paris, Harvard symbologist Robert Langdon is awakened by a phone call in the dead of the night. The elderly curator of the Louvre has been murdered inside the museum, his body covered in baffling symbols. As Langdon and gifted French cryptologist Sophie Neveu sort through the bizarre riddles, they are stunned to discover a trail of clues hidden in the works of Leonardo da Vinci—clues visible for all to see and yet ingeniously disguised by the painter.
+        
+        Even more startling, the late curator was involved in the Priory of Sion—a secret society whose members included Sir Isaac Newton, Victor Hugo, and Da Vinci—and he guarded a breathtaking historical secret. Unless Langdon and Neveu can decipher the labyrinthine puzzle—while avoiding the faceless adversary who shadows their every move—the explosive, ancient truth will be lost forever.`,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -210,6 +213,7 @@ module.exports = {
         authorId: 12,
         genreId: 2,
         coverPhoto: 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1487883111i/32734331.jpg',
+        summary: `I've been many things. I've been a son and a stepbrother. An Army captain and a Vice President. But only with him am I a prince. His little prince. Only with Maxen and Greer does my world make sense, only between them can I find peace from the demons that haunt me. But men like me aren't made to be happy. We don't deserve it. And I should have known a love as sharp as ours could cut both ways. My name is Embry Moore and I serve at the pleasure of the President of the United States... for now. This is the story of an American Prince.`,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -218,6 +222,13 @@ module.exports = {
         authorId: 13,
         genreId: 3,
         coverPhoto: 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1394036728i/20986914.jpg',
+        summary: `The residents of Impervious are the remnant—the survivors of the War of Annihilation. And though the city is chockfull of pleasures to tantalize and entertain, a beast lurks in the corners, haunting the residents with its presence.
+
+        The Beast—a mysterious and terminal illness killed off most of Generations One, Two, and Three. And as Gen-Four prepares to take the stage, a provocative, yet questionable, new method to avoid an untimely death incites a cultural rage.
+        
+        But Fran lives counter-culture, off the grid in true rebel fashion. With a life far from opulent, she scurries through dark tunnels, searching for hot meals with Pete while ditching the holographic security team. To her, it’s a healthy trade-off. Unaccountability means The Council can’t steal her sliver of hope―a belief that she’ll see The Epoch arrive before The Beast can pull her into its fetid embrace.
+        
+        After losing her mother and then her Rebel mentor, Fran stumbles upon a miraculous discovery that may save the residents of Impervious. That is, if she can outrun The Beast…`,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -226,6 +237,7 @@ module.exports = {
         authorId: 14,
         genreId: 7,
         coverPhoto: 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1298460184i/179166.jpg',
+        summary: `If you've ever felt there was something holding you back in life, you were right. It's called the subconscious, unconscious or reactive mind the hidden part of your mind that stores painful experiences, then uses them against you. Dianetics: The Modern Science of Mental Health, the New York Times and International bestseller, shows you how to get rid of the reactive mind for a happier, healthier life. The revolutionary book everyone must read.`,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -234,6 +246,11 @@ module.exports = {
         authorId: 15,
         genreId: 3,
         coverPhoto: 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1501565762i/35800325.jpg',
+        summary: `Zade Holder has always been a free-spirited young woman, from a long dynasty of tarot-card readers, fortunetellers, and practitioners of magick. Growing up in a small town and never quite fitting in, Zade is determined to forge her own path. She leaves her home in Tennessee to break free from her overprotective mother Dela, the local resident spellcaster and fortuneteller.
+
+        Zade travels to Las Vegas and uses supernatural powers to become part of a premiere magic show led by the infamous magician Charles Spellman. Zade fits right in with his troupe of artists and misfits. After all, when everyone is slightly eccentric, appearing "normal" is much less important.
+        
+        Behind the scenes of this multimillion-dollar production, Zade finds herself caught in a love triangle with Mac, the show's good-looking but rough-around-the-edges technical director and Jackson, the tall, dark, handsome and charming bandleader.`,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -242,6 +259,7 @@ module.exports = {
         authorId: 16,
         genreId: 1,
         coverPhoto: 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1349057755i/6684320.jpg',
+        summary: `For the first-time, Diamond presents the inside story of the young cast from Saved by the Bell that the viewing public thought were so lucky . . .Learn the dark, behind-the-scenes story of the cast and crew's extreme lifestyle: sex, drugs, and wild partiesPost-Bell, discover how Diamond used his natural comedic talents to overcome being typecast as a child actor and how he reinvented himself through stand-up comedy and reality TV. Working in Hollywood might represent an American Dream, but for many youngsters it is a true nightmare. Dustin Diamond is best known for his character Samuel Screech Powers in the late '80s and '90s on the long-running American TV teen sitcom Saved by the Bell (SBTB). Diamond's new book gives readers the disheartening story of an ex-child star. Dustin faced serious challenges moving his career beyond his comic role as the smart, funny, and endearing nerd of Bayside High School on the show that made him an audience favorite. Through his eyes, we uncover Hollywood's myths.`,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -250,6 +268,7 @@ module.exports = {
         authorId: 17,
         genreId: 5,
         coverPhoto: 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1320992735i/7724969.jpg',
+        summary: `The classic vampire story that started it all gets new life for a generation of connected teens, 18-year-old Jonathan Harker is diagnosed with a rare blood disorder after visiting a Romanian Count. His girlfriend Mina and a pre-med student named Van Helsing team up to investigate the source of the disease. The teenagers discover a horrifying truth: the Count is a vampire. The harrowing events unfold through emails, text messages, web pages, Twitter feeds, and instant messaging-the natural modernization of Bram Stoker's original Dracula, which was written in letters, diary entries, and news clippings.`,
         createdAt: new Date(),
         updatedAt: new Date()
       },
