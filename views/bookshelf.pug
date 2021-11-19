@@ -14,25 +14,24 @@ block content
                 form(method="post" action=`/bookshelves/delete/${bookshelf.id}`)
                     input(name="_csrf" type="hidden" value=csrfToken)
                     button Delete
-
         table.bookshelf-table
             thead
                 tr
-                    th #
-                    th cover
-                    th title
-                    th author
-                    th avg rating
-                    th rating
-                    th date added
-                    th
+                    th.book-order #
+                    th.book-cover cover
+                    th.book-title title
+                    th.book-author author
+                    th.avg-raging avg rating
+                    th.user-rating rating
+                    th.date-added date added
+                    th.remove-book
             tbody
                 if books
                     each book in books
                         tr
                             td
                                 div.book-order= book.orderNum
-                            td
+                            td.book-cover-container
                                 a(href=`/books/${book.book.id}`)
                                     img.book-cover(src=book.book.coverPhoto alt='book-cover')
                             td
@@ -44,6 +43,6 @@ block content
                             td.date-added= book.dateAdded
                             td
                                 div.remove-book
-                                    form(method="post" action=`/bookshelves/${bookshelf.id}/books/${book.book.id}/delete`)
+                                    form.remove(method="post" action=`/bookshelves/${bookshelf.id}/books/${book.book.id}/delete`)
                                         input(name="_csrf" type="hidden" value=csrfToken)
                                         button Remove
