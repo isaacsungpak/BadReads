@@ -132,6 +132,19 @@ td {
     width: 90px;
 }
 
+.no-books-text {
+   margin-top: 15px;
+   margin-left: 25px;
+   color: #00635d;
+   font-size: 30px;
+   font-family: "Merriweather", Georgia, "Times New Roman", serif;
+   font-weight: bold;
+   line-height: 50px;
+}
+
+.no-books-button button{
+    margin-top: 0px;
+}
 
 /* .catalog {
     display: flex;
