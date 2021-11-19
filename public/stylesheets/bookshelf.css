@@ -57,6 +57,16 @@ td {
     padding: 10px;
 }
 
+.book-title {
+    text-decoration: none;
+    color: rgb(135, 132, 113);
+    transition: all .2s ease-out;
+}
+
+.book-title:hover {
+    text-decoration: underline 1px;
+}
+
 .book-cover {
     display: block;
     width: 50px;
