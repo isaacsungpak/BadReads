@@ -34,6 +34,16 @@ module.exports = {
      createdAt: new Date(),
      updatedAt: new Date()   
     },
+     {
+     name: 'Fiction',
+     createdAt: new Date(),
+     updatedAt: new Date()   
+    },
+     {
+     name: 'Philosophy',
+     createdAt: new Date(),
+     updatedAt: new Date()   
+    },
     ], {});
   },
 

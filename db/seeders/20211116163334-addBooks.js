@@ -197,6 +197,62 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      {
+        title: 'The Da Vinci Code',
+        authorId: 11,
+        genreId: 6,
+        coverPhoto: 'https://images-na.ssl-images-amazon.com/images/I/91Q5dCjc2KL.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        title: 'American Prince',
+        authorId: 12,
+        genreId: 2,
+        coverPhoto: 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1487883111i/32734331.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        title: 'Impervious',
+        authorId: 13,
+        genreId: 3,
+        coverPhoto: 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1394036728i/20986914.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        title: 'Dianetics: The Modern Science of Mental Health',
+        authorId: 14,
+        genreId: 7,
+        coverPhoto: 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1298460184i/179166.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        title: 'Handbook for Mortals',
+        authorId: 15,
+        genreId: 3,
+        coverPhoto: 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1501565762i/35800325.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        title: 'Behind the Bell',
+        authorId: 16,
+        genreId: 1,
+        coverPhoto: 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1349057755i/6684320.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        title: 'iDrakula',
+        authorId: 17,
+        genreId: 5,
+        coverPhoto: 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1320992735i/7724969.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
     ], {});
   },
 

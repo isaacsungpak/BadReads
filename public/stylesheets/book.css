@@ -1,11 +1,12 @@
 .main {
   display:grid;
-  margin-right: 50px;
-  grid-template-columns: 300px 1fr;
+  margin-right: 50px; 
+  grid-template-columns: 400px 1fr;
   text-overflow: ellipsis;
 }
 
 .book-card {
+  margin-left: 50px;
   display: flex;
   flex-direction: column;
   align-items:center;
@@ -20,6 +21,7 @@
 }
 
 .title {
+  margin-bottom: 10px;
   line-height: 1.5;
   font-family: Copernicus, "Libre Baskerville", Georgia, serif;
   font-weight: bold;
@@ -28,7 +30,29 @@
   font-size: 30px;
 }
 
+.divauthorinfo{
+  display: flex;
+}
+
+.authorpic {
+  display: inline;
+  /* margin: 0 auto; */
+  /* margin-left: -10%; */
+  height: 100%;
+  width: auto;
+}
+
+.authorpicdiv{
+  width: 80px;
+  height: 80px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
 .author{
+  /* margin-top: ; si quiero bajar author title*/
   line-height: 1.5;
   font-family: Copernicus, "Libre Baskerville", Georgia, serif;
   font-weight: 300;
@@ -40,6 +64,7 @@
 .ratetext{
   font-family:Arial, Helvetica, sans-serif;
   font-size: 12px;
+  padding: 3px;
 }
 
 .summary{
@@ -48,6 +73,7 @@
   text-overflow: ellipsis;
   font-size: 15px;
   margin-bottom: 20px;
+  margin-top: 35px;
   text-align: justify;
   object-fit: fill;
 }
@@ -75,8 +101,6 @@
   border-bottom-right-radius: 6%;
   box-shadow: 0 2px 8px 0 rgb(0 0 0 / 20%);
 }
-
-
 
 .button{
   cursor: pointer;
@@ -186,3 +210,5 @@
   display: block;
   cursor: pointer;
 }
+
+
