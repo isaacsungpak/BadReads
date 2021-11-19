@@ -1,5 +1,7 @@
 extends layout.pug
 
+include utils.pug
+
 block content
     h1= book.title
     h2= book.Author.name
@@ -30,7 +32,7 @@ block content
             label(for='star1' title='text') 1 star
     //- h4= book.Rating.value
     img(src=book.coverPhoto alt='test')
-
+    +validationErrorSummary(errors)
     if reviews.length
         each review in reviews
             .review
@@ -46,9 +48,9 @@ block content
                 form(method="post" action=`/books/${bookId}/reviews/delete/${bookId}`)
                     input(name="_csrf" type="hidden" value=csrfToken)
                     button Delete
-    if locals.authenticated
-    form(method="get" action=`/books/${bookId}/reviews/add/`)
-        input(name="_csrf" type="hidden" value=csrfToken)
-        button Add Review
+    if locals.authenticated && !userReviews.length
+        form(method="post" action=`/books/${bookId}/reviews/add/`)
+            input(name="_csrf" type="hidden" value=csrfToken)
+            button Add Review
 
     script(src='/javascripts/ratings.js' type='module')

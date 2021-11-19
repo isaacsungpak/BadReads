@@ -3,7 +3,7 @@ extends layout.pug
 include utils.pug
 
 block content
-    h2 Edit your Bookshelf
+    h2 Edit your Review
     +validationErrorSummary(errors)
     form(method="post" action=`/books/${bookId}/reviews/edit/${bookId}`)
         +field("Review Title", "reviewHeader", review.reviewHeader)
