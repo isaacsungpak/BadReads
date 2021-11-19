@@ -8,9 +8,9 @@ append head
 block content
     //- h4= book.Rating.value
     .main
-        .book-card 
+        .book-card
             img.book-cover(src=book.coverPhoto alt='test')
-            
+
             .rating
                 if !locals.authenticated
                     input#star5d(class="star-disabled" type='radio' name='rating' value='5')
@@ -24,7 +24,7 @@ block content
                     label(for='star2' title='text') 2 stars
                     input#star1d(class="star-disabled" type='radio' disabled='true' name='rating' value='1')
                     label(for='star1' title='text') 1 star
-                
+
 
                 if locals.authenticated
                     input#star5.star(type='radio' name='rating' value='5')
@@ -38,10 +38,10 @@ block content
                     input#star1.star(type='radio' name='rating' value='1')
                     label(for='star1' title='text') 1 star
             p.ratetext Rate this book
-            
+
             if locals.authenticated
                 form(method="get" action=`/books/${bookId}/reviews/add/`)
-=======
+
     img(src=book.coverPhoto alt='test')
     +validationErrorSummary(errors)
     if reviews.length
@@ -70,7 +70,7 @@ block content
                                 p.username= review.User.username
                                 p.review-header= review.reviewHeader
                                 p.review-body= review.reviewBody
-                        
+
                             .actions
                                 if userId  === review.userId
                                     .dropdown
@@ -92,4 +92,3 @@ block content
         form(method="post" action=`/books/${bookId}/reviews/add/`)
             input(name="_csrf" type="hidden" value=csrfToken)
             button Add Review
-
