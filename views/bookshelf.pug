@@ -15,28 +15,35 @@ block content
                     input(name="_csrf" type="hidden" value=csrfToken)
                     button Delete
 
-    table.bookshelf-table
-        thead
-            tr
-                th.book-cover cover
-                th.book-title title
-                th.book-author author
-                th.book-avg avg rating
-                th.user-rating rating
-                th.date-added date added
-                th.remove-book
-        tbody
-            if books
-                each book in books
-                    tr
-                        td
-                            img.book-cover(src=book.book.coverPhoto alt='book-cover')
-                        td.book-title= book.book.title
-                        td.book-author= book.book.Author.name
-                        td.book-avg= book.avgRating
-                        td.user-rating= book.userRating
-                        td.date-added= book.dateAdded
-                        td.remove-book
-                            form(method="post" action=`/bookshelves/${bookshelf.id}/books/${book.book.id}/delete`)
-                                input(name="_csrf" type="hidden" value=csrfToken)
-                                button Remove
+        table.bookshelf-table
+            thead
+                tr
+                    th #
+                    th cover
+                    th title
+                    th author
+                    th avg rating
+                    th rating
+                    th date added
+                    th
+            tbody
+                if books
+                    each book in books
+                        tr
+                            td
+                                div.book-order= book.orderNum
+                            td
+                                a(href=`/books/${book.book.id}`)
+                                    img.book-cover(src=book.book.coverPhoto alt='book-cover')
+                            td
+                                a.book-title(href=`/books/${book.book.id}`)= book.book.title
+                            td
+                                div.book-author(href=`/books/${book.book.id}`)= book.book.Author.name
+                            td.avg-rating= book.avgRating
+                            td.user-rating= book.userRating
+                            td.date-added= book.dateAdded
+                            td
+                                div.remove-book
+                                    form(method="post" action=`/bookshelves/${bookshelf.id}/books/${book.book.id}/delete`)
+                                        input(name="_csrf" type="hidden" value=csrfToken)
+                                        button Remove
