@@ -1,5 +1,5 @@
 .bookshelves-page {
-    border: red 2px solid;
+    /* border: red 2px solid; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -40,6 +40,11 @@ a {
 
 ul {
     list-style: none;
+}
+
+.add-form{
+    /* border: red 2px solid; */
+    padding: 10px;
 }
 
 .add-button {
