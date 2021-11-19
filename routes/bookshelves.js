@@ -50,7 +50,7 @@ router.get('/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async(req,res
     const bookshelf = await db.Bookshelf.findByPk(bookshelfId, { include: {model: db.Book, include: [db.Author, db.Genre]} });
 
     if (bookshelf && userId === bookshelf.userId) {
-        const booksWithDetails = new Array(bookshelf.Books.length);
+        let booksWithDetails = new Array(bookshelf.Books.length);
         for (let i = 0; i < bookshelf.Books.length; i++) {
             const longDate = bookshelf.Books[i].BooksOnBookshelf.createdAt;
             const month = longDate.getMonth() + 1;
@@ -63,13 +63,20 @@ router.get('/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async(req,res
             const userRating = await db.Rating.findOne({ where: { userId, bookId } });
 
             booksWithDetails[i] = {
-                orderNum: i + 1,
                 book: bookshelf.Books[i],
                 dateAdded: `${month}/${day}/${year}`,
                 avgRating: avgRating ? avgRating.toFixed(2) : "Not yet rated",
-                userRating: userRating ? userRating.value : "Not yet rated"
+                userRating: userRating ? userRating.value : "Not yet rated",
+                longDate: longDate
             }
         }
+
+        booksWithDetails = booksWithDetails.sort((a,b) => (a.longDate.getTime() - b.longDate.getTime()));
+
+        for (let j = 0; j < booksWithDetails.length; j++) {
+            booksWithDetails[j].orderNum = j + 1;
+        }
+
         res.render('bookshelf', { title: "Bookshelf", bookshelf, csrfToken: req.csrfToken(), books: booksWithDetails });
     } else {
         const errors = [];
