@@ -4,6 +4,7 @@ include utils.pug
 
 append head
   link(rel="stylesheet" href="/stylesheets/book.css")
+  script(src='/javascripts/ratings.js' type='module')
 
 block content
     .main
@@ -51,9 +52,18 @@ block content
                 p.ratetext  ★★★★★ avg rating
 
             if locals.authenticated && !userReviews.length
-                form(method="post" action=`/books/${bookId}/reviews/add/`)
+                form.form(method="post" action=`/books/${bookId}/reviews/add/`)
                     input(name="_csrf" type="hidden" value=csrfToken)
                     button.addreview.button Write a Review
+                
+            if bookshelves
+                .add-to-bookshelf
+                    form.form(method="post" action=`/books/${book.id}/bookshelves`)
+                        select.dropdownbookshelf(name="bookshelfId")
+                            each bookshelf in bookshelves
+                                option(value=bookshelf.id)= bookshelf.name
+                        input(name="_csrf" type="hidden" value=csrfToken)
+                        button.addreview.button Add
 
 
         .text
@@ -86,4 +96,6 @@ block content
                                             form(method="post" action=`/books/${bookId}/reviews/delete/${bookId}`)
                                                 input(name="_csrf" type="hidden" value=csrfToken)
                                                 button.dropdown-content Delete
-                                            script(src='/javascripts/ratings.js' type='module')
+                                            
+    
+

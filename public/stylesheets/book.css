@@ -52,7 +52,6 @@
 }
 
 .author{
-  /* margin-top: ; si quiero bajar author title*/
   line-height: 1.5;
   font-family: Copernicus, "Libre Baskerville", Georgia, serif;
   font-weight: 300;
@@ -210,5 +209,25 @@
   display: block;
   cursor: pointer;
 }
+
+.add-to-bookshelf {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  padding:0px;
+  padding-top:20px;
+  padding-bottom:20px;
+}
+
+.dropdownbookshelf{
+  padding: 0px 35px;
+  margin-bottom: 15px;
+  width: auto
+}
+
 
 
