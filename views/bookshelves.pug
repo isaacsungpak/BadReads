@@ -12,7 +12,8 @@ block content
         .bookshelves
             ul
                 each bookshelf in bookshelves
-                    li:a.bookshelf-container(href=`/bookshelves/${bookshelf.id}`)
+                    li
+                        a.bookshelf-container(href=`/bookshelves/${bookshelf.id}`)
                             .bookshelf= bookshelf.name
         .add-bookshelf
             form.add-form(method="get" action="/bookshelves/add")
