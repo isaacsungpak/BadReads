@@ -54,19 +54,23 @@ block content
                 if reviews.length
                     each review in reviews
                         .review
-                            p.username= review.User.username
-                            p.review-header= review.reviewHeader
-                            p.review-body= review.reviewBody
+                            .textos
+                                p.username= review.User.username
+                                p.review-header= review.reviewHeader
+                                p.review-body= review.reviewBody
+                        
+                            .actions
+                                if userId  === review.userId
+                                    .dropdown
+                                        button.dropbtn ...
+                                            form(method="get" action=`/books/${bookId}/reviews/edit/${bookId}`)
+                                                input(name="_csrf" type="hidden" value=csrfToken)
+                                                button.dropdown-content Edit
 
-            //- if userId  === review.userId
-            //-     form(method="get" action=`/books/${bookId}/reviews/edit/${bookId}`)
-            //-         input(name="_csrf" type="hidden" value=csrfToken)
-            //-         button.button Edit
-            //-     form(method="post" action=`/books/${bookId}/reviews/delete/${bookId}`)
-            //-         input(name="_csrf" type="hidden" value=csrfToken)
-            //-         button.button Delete
+                                            form(method="post" action=`/books/${bookId}/reviews/delete/${bookId}`)
+                                                input(name="_csrf" type="hidden" value=csrfToken)
+                                                button.dropdown-content Delete
+                                            script(src='/javascripts/ratings.js' type='module')
 
 
 
-
-        script(src='/javascripts/ratings.js' type='module')
