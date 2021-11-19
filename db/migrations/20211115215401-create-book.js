@@ -17,6 +17,10 @@ module.exports = {
         references: {model : "Authors" },
         type: Sequelize.INTEGER
       },
+      summary: {
+        type: Sequelize.TEXT,
+        allowNull: false,
+      },
       genreId: {
         allowNull: false,
         references: {model : "Genres" },

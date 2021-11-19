@@ -37,18 +37,18 @@ block content
                     input#star1.star(type='radio' name='rating' value='1')
                     label(for='star1' title='text') 1 star
             p.ratetext Rate this book
-    
+
             if locals.authenticated && !userReviews.length
                 form(method="post" action=`/books/${bookId}/reviews/add/`)
                     input(name="_csrf" type="hidden" value=csrfToken)
                     button.addreview.button Write a Review
-        
+
 
         .text
             .title= book.title
             .author= book.Author.name
 
-            .authorbio= book.Author.biography
+            .summary= book.summary
             .genre= book.Genre.name
 
             .reviewbox
@@ -72,5 +72,3 @@ block content
                                                 input(name="_csrf" type="hidden" value=csrfToken)
                                                 button.dropdown-content Delete
                                             script(src='/javascripts/ratings.js' type='module')
-    
-

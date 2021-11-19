@@ -1,6 +1,6 @@
 .main {
   display:grid;
-  margin-right: 50px; 
+  margin-right: 50px;
   grid-template-columns: 300px 1fr;
   text-overflow: ellipsis;
 }
@@ -42,7 +42,7 @@
   font-size: 12px;
 }
 
-.authorbio{
+.summary{
   line-height: 1.5;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   text-overflow: ellipsis;
@@ -56,7 +56,7 @@
   font-weight: bold;
   font-size: 15px;
   padding-bottom: 3px;
-  border-bottom: solid green 2px  
+  border-bottom: solid green 2px
 }
 
 .rating{
