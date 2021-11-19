@@ -46,9 +46,12 @@ block content
 
         .text
             .title= book.title
-            .author= book.Author.name
-
-            .authorbio= book.Author.biography
+            .authorinfo
+                .divauthorinfo
+                    .authorpicdiv
+                        img.authorpic(src=book.Author.photo alt='test')  
+                    .author= book.Author.name
+                .authorbio= book.Author.biography
             .genre= book.Genre.name
 
             .reviewbox
