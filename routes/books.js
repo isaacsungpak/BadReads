@@ -16,26 +16,26 @@ router.get('/', csrfProtection, asyncHandler(async (req, res) => {
   } else {
     res.render('books', { title: 'BadReads Books', books });
   }
-  
+
 }))
 
-router.get('/random', async(req, res, next) => {
+router.get('/random', async (req, res, next) => {
   //necessary inclusion from index.js for re-render?
   // const reviews = await db.Review.findAll({
   //   limit: 10,
   //   order: [['updatedAt', 'DESC']],
   //   include: [db.Book, db.User ]
-  // }); 
+  // });
   //logic for random book suggestions in index.js
-  let randomNum= Math.random();
+  let randomNum = Math.random();
   const books = await db.Book.findAll();
   const randomBookId = Math.round((books.length * randomNum));
   const nextRandomBook = await db.Book.findOne({
-        where: {id: randomBookId}
-      });
-      //responding to fetch in index.js
-      res.send({nextRandomBook});
-    });
+    where: { id: randomBookId }
+  });
+  //responding to fetch in index.js
+  res.send({ nextRandomBook });
+});
 
 /* GET books id. */
 router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
@@ -49,7 +49,6 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
       userId
     }
   })
-  console.log(userReviews)
   let newValue = 0;
   if (req.session.auth) {
     userId = req.session.auth.userId
@@ -115,10 +114,12 @@ router.get('/:id(\\d+)/reviews/edit/:reviewId(\\d+)', requireAuth, reviewValidat
     }
   });
   res.render('review-edit', { title: "Edit Review", userId, bookId, reviewId, review, csrfToken: req.csrfToken() })
+
 }));
 
 router.post('/:id(\\d+)/reviews/edit/:reviewId(\\d+)', requireAuth, reviewValidators, csrfProtection, asyncHandler(async (req, res, next) => {
   const bookId = req.params.id;
+  const reviewId = req.params.reviewId
   const { userId } = req.session.auth
   const review = await db.Review.findOne({
     where: {
@@ -126,15 +127,31 @@ router.post('/:id(\\d+)/reviews/edit/:reviewId(\\d+)', requireAuth, reviewValida
       userId
     }
   });
-  try {
+  //
+  const validatorErrors = validationResult(req)
+
+  if (validatorErrors.isEmpty()) {
     await review.update({
       reviewHeader: req.body.reviewHeader,
       reviewBody: req.body.reviewBody
     });
-  } catch (e) {
-    next(e);
+    res.redirect(`/books/${bookId}`);
+  } else {
+    const errors = validatorErrors.array().map((error) => error.msg)
+    res.render('review-edit', { title: "Edit Review", userId, bookId, reviewId, review, errors, csrfToken: req.csrfToken() })
   }
-  res.redirect(`/books/${bookId}`);
+  //
+
+
+  // try {
+  //   await review.update({
+  //     reviewHeader: req.body.reviewHeader,
+  //     reviewBody: req.body.reviewBody
+  //   });
+  // } catch (e) {
+  //   next(e);
+  // }
+  // res.redirect(`/books/${bookId}`);
 }));
 
 // require csrf token?
