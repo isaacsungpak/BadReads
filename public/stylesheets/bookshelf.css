@@ -1,17 +1,89 @@
+.catalog {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px yellow solid; */
+}
+
+.bookshelf-head {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px green solid; */
+}
+
+.page-title {
+    font-family: Copernicus, "Libre Baskerville", Georgia, serif;
+    font-size: 30px;
+    font-weight: 600;
+    margin: 40px;
+}
+
+.alter-bookshelf {
+    display: flex;
+
+}
+
+.alter-bookshelf form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 70px;
+}
+
+.alter-bookshelf button {
+    width: 70px;
+    /* border-style: none; */
+}
+
+table {
+    width: 80%;
+}
+
+th {
+    border-bottom: 2px solid rgb(235, 232, 213);
+    margin-bottom: 50px;
+}
+
+td {
+    border-bottom: 1px solid rgba(235, 232, 213, 0.3);
+    /* height: 50px; */
+    /* border: 1px green solid; */
+}
+
+.book-order {
+    padding: 10px;
+}
+
+.book-cover {
+    display: block;
+    width: 50px;
+    object-fit: fill;
+    border-top-right-radius: 6%;
+    border-bottom-right-radius: 6%;
+    box-shadow: 0 2px 8px 0 rgb(0 0 0 / 20%);
+    margin: 0 auto 12px;
+    transition: transform .2s ease-out, box-shadow .2s ease-out;
+}
+
+.book-cover:hover{
+    transform: scale(1.025, 1.025);
+    box-shadow: 0 4px 10px 0 rgb(0 0 0 / 40%);
+}
 
 
+.book-title, .book-author {
+    margin-left: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
-
-
-
-
-
-
-
-
-
-
-
+.avg-rating, .user-rating, .date-added {
+    text-align: center;
+}
 
 /* .catalog {
     display: flex;

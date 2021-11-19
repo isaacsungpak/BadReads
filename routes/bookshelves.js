@@ -63,6 +63,7 @@ router.get('/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async(req,res
             const userRating = await db.Rating.findOne({ where: { userId, bookId } });
 
             booksWithDetails[i] = {
+                orderNum: i + 1,
                 book: bookshelf.Books[i],
                 dateAdded: `${month}/${day}/${year}`,
                 avgRating: avgRating ? avgRating.toFixed(2) : "Not yet rated",
