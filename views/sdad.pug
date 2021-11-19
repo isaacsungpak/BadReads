@@ -1,0 +1,28 @@
+            if locals.authenticated
+                form(method="get" action=`/books/${bookId}/reviews/add/`)
+=======
+    img(src=book.coverPhoto alt='test')
+    +validationErrorSummary(errors)
+    if reviews.length
+        each review in reviews
+            .review
+                p.username= review.User.username
+                p.review-header= review.reviewHeader
+                p.review-body= review.reviewBody
+
+            if userId  === review.userId
+                form(method="get" action=`/books/${bookId}/reviews/edit/${bookId}`)
+                    input(name="_csrf" type="hidden" value=csrfToken)
+                    button.addreview.button Write a Review
+        .text
+@@ -73,4 +85,11 @@ block content
+                                            script(src='/javascripts/ratings.js' type='module')
+
+
+                form(method="post" action=`/books/${bookId}/reviews/delete/${bookId}`)
+                    input(name="_csrf" type="hidden" value=csrfToken)
+                    button Delete
+    if locals.authenticated && !userReviews.length
+        form(method="post" action=`/books/${bookId}/reviews/add/`)
+            input(name="_csrf" type="hidden" value=csrfToken)
+            button Add Review
