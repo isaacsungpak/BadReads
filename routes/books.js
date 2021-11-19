@@ -42,17 +42,19 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
   const bookId = req.params.id;
   const book = await db.Book.findByPk(bookId, { include: [db.Author, db.Genre] });
   const reviews = await db.Review.findAll({ where: { bookId }, include: db.User })
-  let { userId } = req.session.auth;
-  const userReviews = await db.Review.findAll({
-    where: {
-      bookId,
-      userId
-    }
-  })
-  let newValue = 0;
+
+  let userReviews;
+  let userId;
   if (req.session.auth) {
     userId = req.session.auth.userId
+    userReviews = await db.Review.findAll({
+      where: {
+        bookId,
+        userId
+      }
+    })
   }
+   
   res.render('book', { title: 'Badbook', book, reviews, userReviews, userId, bookId, csrfToken: req.csrfToken() });
 }));
 // get -> post

@@ -6,7 +6,6 @@ append head
   link(rel="stylesheet" href="/stylesheets/book.css")
 
 block content
-    //- h4= book.Rating.value
     .main
         .book-card
             img.book-cover(src=book.coverPhoto alt='test')
@@ -38,23 +37,13 @@ block content
                     input#star1.star(type='radio' name='rating' value='1')
                     label(for='star1' title='text') 1 star
             p.ratetext Rate this book
-
-            if locals.authenticated
-                form(method="get" action=`/books/${bookId}/reviews/add/`)
-
-    img(src=book.coverPhoto alt='test')
-    +validationErrorSummary(errors)
-    if reviews.length
-        each review in reviews
-            .review
-                p.username= review.User.username
-                p.review-header= review.reviewHeader
-                p.review-body= review.reviewBody
-
-            if userId  === review.userId
-                form(method="get" action=`/books/${bookId}/reviews/edit/${bookId}`)
+    
+            if locals.authenticated && !userReviews.length
+                form(method="post" action=`/books/${bookId}/reviews/add/`)
                     input(name="_csrf" type="hidden" value=csrfToken)
                     button.addreview.button Write a Review
+        
+
         .text
             .title= book.title
             .author= book.Author.name
@@ -66,7 +55,7 @@ block content
                 if reviews.length
                     each review in reviews
                         .review
-                            .textos
+                            .reviewtext
                                 p.username= review.User.username
                                 p.review-header= review.reviewHeader
                                 p.review-body= review.reviewBody
@@ -74,7 +63,7 @@ block content
                             .actions
                                 if userId  === review.userId
                                     .dropdown
-                                        button.dropbtn ...
+                                        button.dropbutton ...
                                             form(method="get" action=`/books/${bookId}/reviews/edit/${bookId}`)
                                                 input(name="_csrf" type="hidden" value=csrfToken)
                                                 button.dropdown-content Edit
@@ -83,12 +72,5 @@ block content
                                                 input(name="_csrf" type="hidden" value=csrfToken)
                                                 button.dropdown-content Delete
                                             script(src='/javascripts/ratings.js' type='module')
+    
 
-
-                form(method="post" action=`/books/${bookId}/reviews/delete/${bookId}`)
-                    input(name="_csrf" type="hidden" value=csrfToken)
-                    button Delete
-    if locals.authenticated && !userReviews.length
-        form(method="post" action=`/books/${bookId}/reviews/add/`)
-            input(name="_csrf" type="hidden" value=csrfToken)
-            button Add Review
