@@ -193,18 +193,17 @@ router.post('/:id(\\d+)/bookshelves', requireAuth, csrfProtection, asyncHandler(
 router.get('/:id(\\d+)/ratings', csrfProtection, asyncHandler(async (req, res, next) => {
   let userRating;
   const bookId = req.params.id;
-  const defaultStars = 4;
+  let userId;
   if (req.session.auth) {
-    const { userId } = req.session.auth;
+    userId = req.session.auth.userId;
     userRating = await db.Rating.findOne({ where: { bookId, userId } })
-
   }
   const ratings = await db.Rating.findAll({ where: { bookId } });
   let average = ratings.reduce(function (sum, rating) {
     return sum + rating.value;
   }, 0) / (ratings.length ? ratings.length : 1);
 
-  res.send({ userRating, average })
+  res.send({ userRating, average, userId })
 }));
 
 router.post('/:id(\\d+)/ratings', requireAuth, asyncHandler(async (req, res, next) => {
