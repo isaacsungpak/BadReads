@@ -257,3 +257,9 @@
   font-size: 35px;
   font-family: 'Times New Roman', Times, serif;
 }
+
+.blackstar {
+  color: #ccc;
+  white-space:nowrap;
+  font-size:40px;
+}

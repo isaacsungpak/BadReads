@@ -58,7 +58,16 @@ block content
                     .authorpicdiv
                         img.authorpic(src=book.Author.photo alt='test')  
                     .author= book.Author.name
-                p.rateStars: span ★★★★★#[span.avgrating=averageTwoDec]
+                if average === 1
+                    p.rateStars  ★#[span.blackstar ★★★★]#[span.avgrating=averageTwoDec]
+                if average === 2
+                    p.rateStars  ★★#[span.blackstar ★★★]#[span.avgrating=averageTwoDec]
+                if average === 3
+                    p.rateStars  ★★★#[span.blackstar ★★]#[span.avgrating=averageTwoDec]
+                if average === 4
+                    p.rateStars  ★★★★#[span.blackstar ★]#[span.avgrating=averageTwoDec]
+                if average === 5
+                    p.rateStars  ★★★★★#[span.avgrating=averageTwoDec]
                 .summary= book.summary
             .genre= book.Genre.name
 
