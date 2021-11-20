@@ -22,6 +22,7 @@ router.post('/random', async(req, res) => {
   //destructure req.body
   const {book1Id, book2Id, book3Id, suggestionNo} = req.body;
   // find all books
+
   const books = await db.Book.findAll();
   //create currently displayed books array 
   const bookIdArr = [];
@@ -45,6 +46,7 @@ function getRandomBookId (max) {
   //function to get the next book object 
 async function getNextRandomBook (randomBookId) {
   const nextRandomBook = await db.Book.findOne({
+
     where: {id: randomBookId}
   });
   recursion(nextRandomBook)
@@ -72,24 +74,39 @@ let recursion = (nextRandomBook) => {
 });
 
 /* GET books id. */
-router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
+router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
   const bookId = req.params.id;
-  const book = await db.Book.findByPk(bookId, {include: [db.Author, db.Genre]});
+  const book = await db.Book.findByPk(bookId, { include: [db.Author, db.Genre] });
   const reviews = await db.Review.findAll({ where: { bookId }, include: db.User })
-  let userId = req.session.auth;
-  let newValue = 0;
+  const ratings = await db.Rating.findAll({ where: { bookId } })
+  let average = ratings.reduce(function (sum, rating) {
+    return sum + rating.value;
+  }, 0) / (ratings.length);
+
+  let userReviews;
+  let userId;
   if (req.session.auth) {
-   userId = req.session.auth.userId
+    userId = req.session.auth.userId
+    userReviews = await db.Review.findAll({
+      where: {
+        bookId,
+        userId
+      }
+    })
   }
-  res.render('book', { title: 'Badbook', book, reviews, userId});
+  res.render('book', { title: 'Badbook', book, reviews, userReviews, userId, bookId, ratings, average, csrfToken: req.csrfToken() });
 }));
-
-
-router.get('/:id(\\d+)/reviews/add', requireAuth, csrfProtection, (req, res) => {
+// get -> post
+router.post('/:id(\\d+)/reviews/add', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
   const bookId = req.params.id;
+  const book = await db.Book.findByPk(bookId, { include: [db.Author, db.Genre] });
   const review = db.Review.build();
-  res.render('add-review', { title: "Add a Review", review, csrfToken: req.csrfToken(), bookId });
-});
+  const { userId } = req.session.auth
+  const reviews = await db.Review.findAll({ where: { bookId }, include: db.User })
+  res.render('add-review', { title: "Add a Review", review, csrfToken: req.csrfToken(), bookId, reviews, book });
+
+
+}));
 
 const reviewValidators = [
   check("reviewHeader")
@@ -101,7 +118,6 @@ const reviewValidators = [
 ];
 
 router.post('/:id(\\d+)/reviews/', requireAuth, reviewValidators, csrfProtection, asyncHandler(async (req, res) => {
-
   const bookId = req.params.id;
   const { userId } = req.session.auth
   const { reviewBody, reviewHeader } = req.body
@@ -127,8 +143,61 @@ router.post('/:id(\\d+)/reviews/', requireAuth, reviewValidators, csrfProtection
     })
   }
 }))
+// ----
+router.get('/:id(\\d+)/reviews/edit/:reviewId(\\d+)', requireAuth, reviewValidators, csrfProtection, asyncHandler(async (req, res, next) => {
+  const reviewId = req.params.reviewId
+  const bookId = req.params.id;
+  const { userId } = req.session.auth
+  const review = await db.Review.findOne({
+    where: {
+      bookId,
+      userId
+    }
+  });
+  res.render('review-edit', { title: "Edit Review", userId, bookId, reviewId, review, csrfToken: req.csrfToken() })
+}));
 
-router.post('/:id(\\d+)/bookshelves', requireAuth, csrfProtection, asyncHandler(async(req,res,next) => {
+router.post('/:id(\\d+)/reviews/edit/:reviewId(\\d+)', requireAuth, reviewValidators, csrfProtection, asyncHandler(async (req, res, next) => {
+  const bookId = req.params.id;
+  const { userId } = req.session.auth
+  const review = await db.Review.findOne({
+    where: {
+      bookId,
+      userId
+    }
+  });
+  try {
+    await review.update({
+      reviewHeader: req.body.reviewHeader,
+      reviewBody: req.body.reviewBody
+    });
+  } catch (e) {
+    next(e);
+  }
+  res.redirect(`/books/${bookId}`);
+}));
+
+// require csrf token?
+router.post('/:id(\\d+)/reviews/delete/:reviewId(\\d+)', requireAuth, asyncHandler(async (req, res, next) => {
+  const bookId = req.params.id;
+  const { userId } = req.session.auth
+  const review = await db.Review.findOne({
+    where: {
+      bookId,
+      userId,
+    }
+  });
+
+  try {
+    await review.destroy();
+  } catch (e) {
+    next(e);
+  }
+  res.redirect(`/books/${bookId}`);
+}));
+
+// ----
+router.post('/:id(\\d+)/bookshelves', requireAuth, csrfProtection, asyncHandler(async (req, res, next) => {
   const bookId = req.params.id;
   const { userId } = req.session.auth;
   const { bookshelfId } = req.body;
@@ -146,45 +215,47 @@ router.post('/:id(\\d+)/bookshelves', requireAuth, csrfProtection, asyncHandler(
 }));
 
 
-router.get('/:id(\\d+)/ratings', csrfProtection, asyncHandler(async(req, res, next) => {
+router.get('/:id(\\d+)/ratings', csrfProtection, asyncHandler(async (req, res, next) => {
   let userRating;
   const bookId = req.params.id;
   const defaultStars = 4;
   if (req.session.auth) {
-    const {userId} = req.session.auth;
-    userRating = await db.Rating.findOne({where: {bookId, userId}})
+    const { userId } = req.session.auth;
+    userRating = await db.Rating.findOne({ where: { bookId, userId } })
 
   }
-  const ratings = await db.Rating.findAll({ where: { bookId }});
-    let average = ratings.reduce(function (sum, rating) {
-      return sum + rating.value;
-    }, 0) / (ratings.length ? ratings.length : 1);
+  const ratings = await db.Rating.findAll({ where: { bookId } });
+  let average = ratings.reduce(function (sum, rating) {
+    return sum + rating.value;
+  }, 0) / (ratings.length ? ratings.length : 1);
 
-  res.send({userRating, average})
+  res.send({ userRating, average })
 }));
 
-router.post('/:id(\\d+)/ratings', requireAuth, asyncHandler(async(req, res, next) => {
-  console.log('reqbody', req.body);
-  const {userId} = req.session.auth;
+router.post('/:id(\\d+)/ratings', requireAuth, asyncHandler(async (req, res, next) => {
+  console.log('reqbodyyyyyy', req.body);
+  const { userId } = req.session.auth;
   const bookId = req.params.id;
 
   // if (!userId) {
   //   res.redirect('/users/login');
   // }
 
-  let rating = await db.Rating.findOne({where: {userId, bookId}})
-  let {value} = req.body;
+  let rating = await db.Rating.findOne({ where: { userId, bookId } })
+  console.log(rating, 'ratinggggg')
+  let { value } = req.body;
   if (rating) {
-    await rating.update({value})
+    await rating.update({ value })
   } else {
-    await db.Rating.create({value, userId, bookId})
+    await db.Rating.create({ value, userId, bookId })
   }
-  const ratings = await db.Rating.findAll({ where: { bookId }});
+  const ratings = await db.Rating.findAll({ where: { bookId } });
   let average = ratings.reduce(function (sum, rating) {
     return sum + rating.value;
   }, 0) / (ratings.length);
-  console.log(average);
-  res.send({average})
+
+  console.log(average, 'averageeeee');
+  res.send({ average })
 }));
 
 

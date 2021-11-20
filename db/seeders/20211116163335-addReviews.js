@@ -10,6 +10,14 @@ module.exports = {
       */
     return queryInterface.bulkInsert('Reviews', [
       {
+        reviewHeader: 'My mom bought it for me…',
+        reviewBody: "I was really surpised with this book, it was much better than i expected. My mom bought it for me, i didnt really want to read it but i didnt want to hurt her feelings, but it didnt suck. Don't get me wrong, i didnt love it but still, it was good.",
+        userId: 5,
+        bookId: 3,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
         reviewHeader: 'Scam',
         reviewBody: 'I skimmed this book belonging to my granddaughter. It\'s a rather superficial glance at a young celebrity who, I discovered for the first time, is a best selling recording star. As you can tell I\'ve never listened to his music. There are a lot of photographs and mostly first person accounts of his experiences. But not much in depth. But then he is only 16 or 17 years old. He has nice things to say about his family, and other celebrity musicians he\'s worked with including Taylor Swift, grieves over the death of Michael Jackson who he greatly admires, and lets us know that his parents were teenagers when he was born, and their marriage didn\'t last very long. However he is a Canadian and Canada has given us many fine musicians including Leonard Cohen, Bruce Cockburn, and Alanis Morrisette, so maybe there hope for this person after the celebrity phase wears off.',
         userId: 3,
@@ -18,18 +26,10 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        reviewHeader: 'Bad book',
-        reviewBody: 'Is this for real .____.',
+        reviewHeader: 'fun book?',
+        reviewBody: "I know, I know...I thought it was a fun book. Totally silly - I liked looking at the photos and found it to be humorous. I'm smart...and I don't mind reading books that aren't. :)",
         userId: 4,
-        bookId: 1,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        reviewHeader: 'AMAZING!!',
-        reviewBody: 'Well... I think this book was literally AMAZING! Not just because I LOVE Justin Bieber, but because this book was written by him in a teenagers perspective! Which I totally LOVED!',
-        userId: 2,
-        bookId: 1,
+        bookId: 4,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -42,18 +42,10 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        reviewHeader: 'Snooki',
-        reviewBody: "It's about what you'd expect from a book written by Snooki.",
-        userId: 5,
-        bookId: 2,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        reviewHeader: 'I only read it as a dare',
-        reviewBody: 'They were a lot of interesting anecdotes and personal reflections by this remarkable artist.',
-        userId: 2,
-        bookId: 3,
+        reviewHeader: 'This is my review',
+        reviewBody: "Actual rating: 1.5 stars. Believe it or not, there are actually a few books that are worse than Twilight.",
+        userId: 3,
+        bookId: 6,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -66,9 +58,25 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        reviewHeader: 'My mom bought it for me…',
-        reviewBody: "I was really surpised with this book, it was much better than i expected. My mom bought it for me, i didnt really want to read it but i didnt want to hurt her feelings, but it didnt suck. Don't get me wrong, i didnt love it but still, it was good.",
+        reviewHeader: 'Snooki',
+        reviewBody: "It's about what you'd expect from a book written by Snooki.",
         userId: 5,
+        bookId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        reviewHeader: 'Bad book',
+        reviewBody: 'Is this for real .____.',
+        userId: 4,
+        bookId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        reviewHeader: 'I only read it as a dare',
+        reviewBody: 'They were a lot of interesting anecdotes and personal reflections by this remarkable artist.',
+        userId: 2,
         bookId: 3,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -90,10 +98,10 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        reviewHeader: 'fun book?',
-        reviewBody: "I know, I know...I thought it was a fun book. Totally silly - I liked looking at the photos and found it to be humorous. I'm smart...and I don't mind reading books that aren't. :)",
-        userId: 4,
-        bookId: 4,
+        reviewHeader: '????',
+        reviewBody: "This is what happens when I have been drinking and remember I have a Kindle Unlimited subscription. I started blithely walking down the KU garden path until I end up in the dark and shadowy \"weird porn topiaries\" section, where the only thing that comes faster than the flashing lightning are the heroines of these erotic shorts.",
+        userId: 3,
+        bookId: 14,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -106,26 +114,18 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        reviewHeader: 'spoiler alert:',
-        reviewBody: "he's a vampire!!!",
-        userId: 3,
-        bookId: 6,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        reviewHeader: 'This is my review',
-        reviewBody: "Actual rating: 1.5 stars. Believe it or not, there are actually a few books that are worse than Twilight.",
-        userId: 3,
-        bookId: 6,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
         reviewHeader: 'I am in pain…',
         reviewBody: " Make it stop.",
         userId: 6,
         bookId: 7,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        reviewHeader: 'AMAZING!!',
+        reviewBody: 'Well... I think this book was literally AMAZING! Not just because I LOVE Justin Bieber, but because this book was written by him in a teenagers perspective! Which I totally LOVED!',
+        userId: 2,
+        bookId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -150,6 +150,14 @@ module.exports = {
         reviewBody: "I do like this more than I dislike it lmao",
         userId: 4,
         bookId: 9,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        reviewHeader: 'spoiler alert:',
+        reviewBody: "he's a vampire!!!",
+        userId: 3,
+        bookId: 6,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -190,14 +198,6 @@ module.exports = {
         reviewBody: "Don't get me wrong, this book is awful. Absolutely horrible. But in the best possible way. It is exactly what I wanted it to be.",
         userId: 2,
         bookId: 13,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        reviewHeader: '????',
-        reviewBody: "This is what happens when I have been drinking and remember I have a Kindle Unlimited subscription. I started blithely walking down the KU garden path until I end up in the dark and shadowy \"weird porn topiaries\" section, where the only thing that comes faster than the flashing lightning are the heroines of these erotic shorts.",
-        userId: 3,
-        bookId: 14,
         createdAt: new Date(),
         updatedAt: new Date()
       },

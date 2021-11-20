@@ -1,0 +1,18 @@
+extends layout.pug
+
+include utils.pug
+append head
+  link(rel="stylesheet" href="/stylesheets/edit.css")
+
+block content
+    .editHeader
+        h2 What would you like to change?
+    +validationErrorSummary(errors)
+    .form
+        form(method="post" action=`/books/${bookId}/reviews/edit/${bookId}`)
+            .editTitle
+                +field("Review Title", "reviewHeader", review.reviewHeader)
+            .editBody
+                +field("Review", "reviewBody", review.reviewBody, "textarea")
+                input(name="_csrf" type="hidden" value=csrfToken)
+                button Update Your Review

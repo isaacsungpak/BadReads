@@ -3,6 +3,8 @@ extends layout
 append head
   //- add page specific styles by appending to the head
   link(rel="stylesheet" href="/stylesheets/index.css")
+  link(rel="stylesheet" href="/stylesheets/main.css")
+
   //- add page specific js
   script(src="/javascripts/index.js" type="module" defer)
 
@@ -40,10 +42,8 @@ block content
       each review in reviews
         div.review-container
           div.book-cover
-            img(src=`${review.Book.coverPhoto}`) 
+            img(src=`${review.Book.coverPhoto}`)
           div.text-container
             p.user <span>#{review.User.username}</span> reviewed <span>#{review.Book.title}</span>:
             br
             p.review= review.reviewBody
-    
-  //- p Welcome to your Project Skeleton

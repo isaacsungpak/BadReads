@@ -1,11 +1,18 @@
 extends layout.pug
 
 include utils.pug
+append head
+  link(rel="stylesheet" href="/stylesheets/edit.css")
+
+
 
 block content
-    h2 Edit your Bookshelf
+    .editHeader
+        h2 Edit your Bookshelf
     +validationErrorSummary(errors)
-    form(method="post" action=`/bookshelves/edit/${bookshelf.id}`)
-        +field("Name", "name", bookshelf.name)
-        input(name="_csrf" type="hidden" value=csrfToken)
-        button Edit
+    .form
+        form(method="post" action=`/bookshelves/edit/${bookshelf.id}`)
+            .editTitle
+                +field("Name", "name", bookshelf.name)
+                input(name="_csrf" type="hidden" value=csrfToken)
+                button Change Name

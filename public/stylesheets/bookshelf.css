@@ -1,0 +1,233 @@
+.catalog {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px yellow solid; */
+}
+
+.bookshelf-head {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px green solid; */
+}
+
+.page-title {
+    font-family: Copernicus, "Libre Baskerville", Georgia, serif;
+    font-size: 30px;
+    font-weight: 600;
+    margin: 40px;
+}
+
+.alter-bookshelf {
+    display: flex;
+
+}
+
+.alter-bookshelf form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 70px;
+}
+
+.alter-bookshelf button {
+    width: 70px;
+    /* border-style: none; */
+}
+
+/* .table-div {
+    width: 800px;
+    display: flex;
+} */
+
+th {
+    border-bottom: 2px solid rgb(235, 232, 213);
+    margin-bottom: 50px;
+}
+
+
+
+td {
+    border-bottom: 1px solid rgba(235, 232, 213, 0.3);
+    /* height: 50px; */
+    /* border: 1px green solid; */
+}
+
+.book-order {
+    padding: 10px;
+    width: 50px;
+    text-align: center;
+}
+
+.book-cover-container {
+    padding: 10px;
+}
+
+.book-cover {
+    width: 60px;
+}
+
+.book-cover:not(th) {
+    display: block;
+    object-fit: fill;
+    border-top-right-radius: 6%;
+    border-bottom-right-radius: 6%;
+    box-shadow: 0 2px 8px 0 rgb(0 0 0 / 20%);
+    margin: 0 auto 12px;
+    transition: transform .2s ease-out, box-shadow .2s ease-out;
+}
+
+.book-cover:not(th):hover{
+    transform: scale(1.025, 1.025);
+    box-shadow: 0 4px 10px 0 rgb(0 0 0 / 40%);
+}
+
+.book-title {
+    width: 270px;
+    padding: 20px;
+}
+
+.book-title:not(th) {
+    text-decoration: none;
+    color: rgb(135, 132, 113);
+    transition: all .2s ease-out;
+}
+
+.book-title:not(th):hover {
+    text-decoration: underline 1px;
+}
+
+.book-title, .book-author {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.book-author {
+    width: 200px;
+    padding: 20px;
+}
+
+.avg-rating, .user-rating, .date-added {
+    width: 120px;
+}
+
+.avg-rating, .user-rating, .date-added {
+    text-align: center;
+    padding: 20px;
+}
+
+.remove-book:not(th) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    padding: 0px;
+}
+
+.remove button{
+    width: 90px;
+}
+
+.no-books-text {
+   margin-top: 15px;
+   margin-left: 25px;
+   color: #00635d;
+   font-size: 30px;
+   font-family: "Merriweather", Georgia, "Times New Roman", serif;
+   font-weight: bold;
+   line-height: 50px;
+}
+
+.no-books-button button{
+    margin-top: 0px;
+}
+
+/* .catalog {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-title {
+    font-family: Copernicus, "Libre Baskerville", Georgia, serif;
+    font-size: 30px;
+    font-weight: 600;
+    margin: 40px;
+}
+
+.book-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-column-gap: 30px;
+    grid-row-gap: 20px;
+    list-style: none;
+}
+
+.book-card {
+    width: 200px;
+    height: 500px;
+}
+
+.book-cover {
+    display: block;
+    width: 100%;
+    height: 270px;
+    object-fit: fill;
+    border-top-right-radius: 6%;
+    border-bottom-right-radius: 6%;
+    box-shadow: 0 2px 8px 0 rgb(0 0 0 / 20%);
+    margin: 0 auto 12px;
+    transition: transform .2s ease-out, box-shadow .2s ease-out;
+}
+
+.book-cover:hover{
+    transform: scale(1.025, 1.025);
+    box-shadow: 0 4px 10px 0 rgb(0 0 0 / 40%);
+}
+
+.book-link {
+    width: 100%;
+    height: 70%;
+    margin-bottom: 10px;
+}
+
+.book-title {
+    line-height: 1.5;
+    font-family: Copernicus, "Libre Baskerville", Georgia, serif;
+    font-weight: 600;
+    text-overflow: ellipsis;
+}
+
+.book-author {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.alter-bookshelf {
+    display: flex;
+
+}
+
+.alter-bookshelf form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 70px;
+}
+
+.alter-bookshelf button {
+    width: 70px;
+    border-style: none;
+}
+
+.alter-bookshelf button:hover {
+
+}
+*/

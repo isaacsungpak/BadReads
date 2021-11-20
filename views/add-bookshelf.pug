@@ -1,11 +1,17 @@
 extends layout.pug
 
 include utils.pug
+append head
+  link(rel="stylesheet" href="/stylesheets/nav-bar.css")
+  link(rel="stylesheet" href="/stylesheets/edit.css")
 
 block content
-    h2 Add a Bookshelf
+    .editHeader
+      h2 Add a Bookshelf
     +validationErrorSummary(errors)
-    form(method="post" action="/bookshelves/add")
-        +field("Name", "name", bookshelf.name)
-        input(name="_csrf" type="hidden" value=csrfToken)
-        button Add
+    .form
+      form(method="post" action="/bookshelves/add")
+        .editTitle
+          +field("Name", "name", bookshelf.name)
+          input(name="_csrf" type="hidden" value=csrfToken)
+          button Add Your Bookshelf

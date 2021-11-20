@@ -1,0 +1,53 @@
+.bookshelves-page {
+    /* border: red 2px solid; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-title {
+    font-family: Copernicus, "Libre Baskerville", Georgia, serif;
+    font-size: 30px;
+    font-weight: 600;
+    margin: 40px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.bookshelves {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.bookshelf {
+    font-size: 18px;
+    width: auto;
+    padding: 10px 20px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+    /* border: 2px red solid; */
+}
+
+.bookshelf:hover {
+    text-decoration: underline;
+    transform: translate(0, -3px);
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+}
+
+.add-form{
+    /* border: red 2px solid; */
+    padding: 10px;
+}
+
+.add-button {
+    width: 140px;
+    font-size: 16px;
+}

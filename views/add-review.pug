@@ -2,11 +2,19 @@ extends layout.pug
 
 include utils.pug
 
+append head
+  link(rel="stylesheet" href="/stylesheets/nav-bar.css")
+  link(rel="stylesheet" href="/stylesheets/edit.css")
+
 block content
-    h2= title
+    .editHeader
+      h2= title
     +validationErrorSummary(errors)
-    form(method="post" action=`/books/${bookId}/reviews`)
-        +field("Review Title", "reviewHeader", review.reviewHeader)
-        +field("Review", "reviewBody", review.reviewBody, "textarea")
-        input(name="_csrf" type="hidden" value=csrfToken)
-        button Add
+    .form
+      form(method="post" action=`/books/${bookId}/reviews`)
+        .editTitle
+          +field("Review Title", "reviewHeader", review.reviewHeader)
+        .editBody
+          +field("Review", "reviewBody", review.reviewBody, "textarea")
+          input(name="_csrf" type="hidden" value=csrfToken)
+          button Add

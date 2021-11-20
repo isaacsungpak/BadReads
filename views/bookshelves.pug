@@ -2,12 +2,20 @@ extends layout.pug
 
 include utils.pug
 
+append head
+  link(rel="stylesheet" href="/stylesheets/bookshelves.css")
+
 block content
-    h2 Bookshelves
     +validationErrorSummary(errors)
-    ul
-        each bookshelf in bookshelves
-            li: a(href=`/bookshelves/${bookshelf.id}`)= bookshelf.name
-    form(method="get" action="/bookshelves/add")
-        input(name="_csrf" type="hidden" value=csrfToken)
-        button New Bookshelf
+    .bookshelves-page
+        p.page-title Bookshelves
+        .bookshelves
+            ul
+                each bookshelf in bookshelves
+                    li
+                        a.bookshelf-container(href=`/bookshelves/${bookshelf.id}`)
+                            .bookshelf= bookshelf.name
+        .add-bookshelf
+            form.add-form(method="get" action="/bookshelves/add")
+                input(name="_csrf" type="hidden" value=csrfToken)
+                button.add-button New Bookshelf

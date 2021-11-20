@@ -5,23 +5,36 @@ html
         title= title
         meta(charset='utf-8')
         meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
-        link(rel='stylesheet' href='../stylesheets/index.css')
-        link(rel='stylesheet' href='../stylesheets/main.css')
-        link(rel='stylesheet' href='../stylesheets/reset.css')
+
+        link(rel='stylesheet' href="/stylesheets/reset.css")
+        link(rel="stylesheet" href="/stylesheets/nav-bar.css")
+
 
 
   body
     style
         include ../stylesheets/index.css
     .nav-bar
-        a(href=`/`): h1.bad-reads Bad Reads
-        a(href=`/books`): div.mybooks Books
+      .logo
+        a.nav(href=`/`): h1.bad-reads: span.bad bad#[span.reads reads]
+      .navtags
+        a.nav(href=`/books`): div.mybooks.navtext Books
         if locals.authenticated
-          a(href=`/bookshelves`): div.mybooks My Bookshelves
-          a(href=`/`): div.profilePic Picture
-          a(href=`/`): div.name Name
-          a(href=`/users/logout`): div.logout \Logout/
+          a.nav(href=`/bookshelves`): div.mybooks.navtext My Bookshelves
+          .nameandpic
+            a.nav(href=`/bookshelves`): img.image(src='/user.png' alt='user')
+            a.nav(href=`/bookshelves`): div.name= user.username
+          .buttons
+            a(href=`/users/logout`): button.logbuttons Logout
         else
-          a(href=`/users/login`): div.login *Login*
-          a(href=`/users/register`): div.register Register
+          .buttons
+            a(href=`/users/login`): button.logbuttons Login
+          .buttons
+            a(href=`/users/register`): button.logbuttons Register
     block content
+    footer
+      .github-links
+        a(href="https://github.com/DylanWelzel") Dylan Welzel
+        a(href="https://github.com/jaguitart") Joaquin Guitart
+        a(href="https://github.com/ryanbender34") Ryan Bender
+        a(href="https://github.com/isaacsungpak") Isaac Pak
