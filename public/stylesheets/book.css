@@ -62,8 +62,9 @@
 
 .ratetext{
   font-family:Arial, Helvetica, sans-serif;
-  font-size: 12px;
+  font-size: 15px;
   padding: 3px;
+  height: 20px;
 }
 
 .summary{
@@ -116,6 +117,33 @@
   background-color:rgba(54, 54, 54, 0.384);
   border-color: rgba(54, 54, 54, 0.384);
 }
+
+.addreview{
+  height: 30px;
+  width: 80px;
+}
+
+.addtoshelfform{
+  text-align: end;
+  padding: 0px;
+}
+
+.add-to-bookshelf {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  margin: 0px;
+}
+
+.dropdownbookshelf{
+  padding: 0px;
+  width: auto;
+  text-align:left;
+  margin-top: 0px;
+}
+
 
 .reviewbox {
   display: flex;
@@ -210,24 +238,22 @@
   cursor: pointer;
 }
 
-.add-to-bookshelf {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .form {
   padding:0px;
   padding-top:20px;
   padding-bottom:20px;
 }
 
-.dropdownbookshelf{
-  padding: 0px 35px;
-  margin-bottom: 15px;
-  width: auto
+
+.rateStars{
+  color: #ffa600;
+  white-space:nowrap;
+  font-size:40px;
 }
 
-
-
+.avgrating{
+  margin-left: 15px;
+  color: black;
+  font-size: 35px;
+  font-family: 'Times New Roman', Times, serif;
+}

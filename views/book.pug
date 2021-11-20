@@ -23,7 +23,7 @@ block content
                 input#star1.star(type='radio' name='rating' value='1')
                 label(for='star1' title='text') 1 star
 
-            p.ratetext Rate this book
+            p.ratetext#rateThisBookText     
 
             if average === 1
                 p.ratetext  ★ avg rating
@@ -39,11 +39,11 @@ block content
             if locals.authenticated && !userReviews.length
                 form.form(method="post" action=`/books/${bookId}/reviews/add/`)
                     input(name="_csrf" type="hidden" value=csrfToken)
-                    button.addreview.button Write a Review
+                    button.button Write a Review
                 
             if bookshelves
                 .add-to-bookshelf
-                    form.form(method="post" action=`/books/${book.id}/bookshelves`)
+                    form.addtoshelfform(method="post" action=`/books/${book.id}/bookshelves`)
                         select.dropdownbookshelf(name="bookshelfId")
                             each bookshelf in bookshelves
                                 option(value=bookshelf.id)= bookshelf.name
@@ -58,6 +58,7 @@ block content
                     .authorpicdiv
                         img.authorpic(src=book.Author.photo alt='test')  
                     .author= book.Author.name
+                p.rateStars: span ★★★★★#[span.avgrating=averageTwoDec]
                 .summary= book.summary
             .genre= book.Genre.name
 

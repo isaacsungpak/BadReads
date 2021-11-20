@@ -46,14 +46,12 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
   let userId;
   let bookshelves;
   let userReviews;
-  // if (req.session.auth){
-  //   userId = req.session.auth.userId
-  // }
-
 
   let average = ratings.reduce(function (sum, rating) {
     return sum + rating.value;
   }, 0) / (ratings.length);
+  let averageTwoDec = average.toFixed(2);
+
 
   if (req.session.auth) {
     userId = req.session.auth.userId
@@ -65,13 +63,8 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
       }
     })
   }
-  res.render('book', { title: 'Badbook', bookshelves, book, reviews, userReviews, userId, bookId, ratings, average, csrfToken: req.csrfToken() });
+  res.render('book', { title: 'Badbook', bookshelves, book, reviews, userReviews, userId, bookId, ratings, average, averageTwoDec, csrfToken: req.csrfToken() });
 }));
-
-/////////////////////////NO LO NECESITO
-// router.get('/:id(\\d+)/keep', csrfProtection, asyncHandler(async (req, res) => {
-// }));
-/////////////////////////
 
 // get -> post
 router.post('/:id(\\d+)/reviews/add', requireAuth, csrfProtection, asyncHandler(async (req, res) => {

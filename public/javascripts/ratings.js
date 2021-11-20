@@ -1,6 +1,7 @@
 window.addEventListener("DOMContentLoaded", (e) => {
     const starContainer = document.querySelector('.rating');
     const stars = document.getElementsByClassName('star')
+    const rateThisBookText = document.getElementById('rateThisBookText')
     let url = window.location.pathname;
     const urlParts = url.split('/');
     const bookId = urlParts[2];
@@ -12,10 +13,11 @@ window.addEventListener("DOMContentLoaded", (e) => {
                 fetch(`/books/${bookId}/ratings`)
                     .then(res => res.json())
                     .then(res => {
+                        rateThisBookText.innerText = "Your rating"
                         let val = (res.userRating.value)
                         let StarPicked = document.querySelector(`[value="${val}"]`)
-                        StarPicked.setAttribute("checked", "checked")
-                    });
+                        StarPicked.setAttribute("checked", "checked")})
+                    .catch(err => rateThisBookText.innerText = "Rate this book")
 
                 const addStart = (e) => {
                     if (e.target.value) {
