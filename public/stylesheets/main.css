@@ -4,13 +4,12 @@
 
 
 h1 {
-    color: #555555;
+    color: #382110;
 }
 
 .main-container{
     display: flex;
     flex-direction: row;
-    background-color: #c0bfbb33;
 
 }
 
@@ -30,7 +29,6 @@ p {
 }
 
 .column-1 {
-border: 3px solid red;
 width: 20vw;
 margin-right: 2vw;
 min-width: 150px;
@@ -41,7 +39,6 @@ align-items: center;
 
 .column-2 {
     min-width: 56vw;
-    border: 3px solid green;
     margin-right: 2vw;
 }
 
@@ -71,6 +68,10 @@ img {
     width: 100px;
     height: 20vh;
     object-fit: contain;
+}
+
+.random-book-id, .random-book2-id, .random-book3-id {
+    color: white;
 }
 
 
