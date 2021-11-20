@@ -7,72 +7,68 @@ append head
   script(src='/javascripts/ratings.js' type='module')
 
 block content
-
     .main
         .book-card
             img.book-cover(src=book.coverPhoto alt='test')
 
             .rating
-                if !locals.authenticated
-                    input#star5d(class="star-disabled" type='radio' name='rating' value='5')
-                    label(for='star5' title='text') 5 stars
-                    buttom()
-                    input#star4d(class="star-disabled" type='radio' disabled='true' name='rating' value='4')
-                    label(for='star4' title='text') 4 stars
-                    input#star3d(class="star-disabled" type='radio' disabled='true' name='rating' value='3')
-                    label(for='star3' title='text') 3 stars
-                    input#star2d(class="star-disabled" type='radio' disabled='true' name='rating' value='2')
-                    label(for='star2' title='text') 2 stars
-                    input#star1d(class="star-disabled" type='radio' disabled='true' name='rating' value='1')
-                    label(for='star1' title='text') 1 star
+                input#star5.star(type='radio' name='rating' value='5')
+                label(for='star5' title='text') 5 stars
+                input#star4.star(type='radio' name='rating' value='4')
+                label(for='star4' title='text') 4 stars
+                input#star3.star(type='radio' name='rating' value='3')
+                label(for='star3' title='text') 3 stars
+                input#star2.star(type='radio' name='rating' value='2')
+                label(for='star2' title='text') 2 stars
+                input#star1.star(type='radio' name='rating' value='1')
+                label(for='star1' title='text') 1 star
 
-
-                if locals.authenticated
-                    input#star5.star(type='radio' name='rating' value='5')
-                    label(for='star5' title='text') 5 stars
-                    input#star4.star(type='radio' name='rating' value='4')
-                    label(for='star4' title='text') 4 stars
-                    input#star3.star(type='radio' name='rating' value='3')
-                    label(for='star3' title='text') 3 stars
-                    input#star2.star(type='radio' name='rating' value='2')
-                    label(for='star2' title='text') 2 stars
-                    input#star1.star(type='radio' name='rating' value='1')
-                    label(for='star1' title='text') 1 star
-
-            p.ratetext Rate this book
-            if average >= 1 && average < 2
-                p.ratetext  ★ avg rating
-            if average >= 2 && average < 3
-                p.ratetext  ★★ avg rating
-            if average >= 3 && average < 4
-                p.ratetext  ★★★ avg rating
-            if average >= 4 && average < 5
-                p.ratetext  ★★★★ avg rating
-            if average === 5
-                p.ratetext  ★★★★★ avg rating
+            p.ratetext#rateThisBookText
 
             if locals.authenticated && !userReviews.length
-                form(method="post" action=`/books/${bookId}/reviews/add/`)
+                form.form(method="post" action=`/books/${bookId}/reviews/add/`)
                     input(name="_csrf" type="hidden" value=csrfToken)
-                    button.addreview.button Write a Review
+                    button.button Write a Review
+                
+            if bookshelves
+                .add-to-bookshelf
+                    form.addtoshelfform(method="post" action=`/books/${book.id}/bookshelves`)
+                        select.dropdownbookshelf(name="bookshelfId")
+                            each bookshelf in bookshelves
+                                option(value=bookshelf.id)= bookshelf.name
+                        input(name="_csrf" type="hidden" value=csrfToken)
+                        button.addreview.button Add
 
 
         .text
             .title= book.title
-            .authorinfo
-                .divauthorinfo
-                    .authorpicdiv
-                        img.authorpic(src=book.Author.photo alt='test')
-                    .author= book.Author.name
+            .head
+                .author= book.Author.name
+                if average >= 1 && average < 2
+                    p.rateStars  ★#[span.blackstar ★★★★]#[span.avgrating=averageTwoDec]
+                if average >= 2 && average < 3
+                    p.rateStars  ★★#[span.blackstar ★★★]#[span.avgrating=averageTwoDec]
+                if average >= 3 && average < 4
+                    p.rateStars  ★★★#[span.blackstar ★★]#[span.avgrating=averageTwoDec]
+                if average >= 4 && average < 5
+                    p.rateStars  ★★★★#[span.blackstar ★]#[span.avgrating=averageTwoDec]
+                if average === 5
+                    p.rateStars  ★★★★★#[span.avgrating=averageTwoDec]
                 .summary= book.summary
             .genre= book.Genre.name
+
+            .authorpicdiv
+                .imgauthor
+                    img.authorpic(src=book.Author.photo alt='test')  
+                .authorname= book.Author.name
+                .authorbio= book.Author.biography
 
             .reviewbox
                 if reviews.length
                     each review in reviews
                         .review
                             .reviewtext
-                                p.username= review.User.username
+                                p.username= `${review.User.username}:`
                                 p.review-header= review.reviewHeader
                                 p.review-body= review.reviewBody
 

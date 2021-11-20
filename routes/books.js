@@ -71,6 +71,7 @@ let recursion = (nextRandomBook) => {
     getRandomBookId(books.length);
   }
 }
+
 });
 
 /* GET books id. */
@@ -79,14 +80,19 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
   const book = await db.Book.findByPk(bookId, { include: [db.Author, db.Genre] });
   const reviews = await db.Review.findAll({ where: { bookId }, include: db.User })
   const ratings = await db.Rating.findAll({ where: { bookId } })
+  let userId;
+  let bookshelves;
+  let userReviews;
+
   let average = ratings.reduce(function (sum, rating) {
     return sum + rating.value;
   }, 0) / (ratings.length);
+  let averageTwoDec = average.toFixed(2);
 
-  let userReviews;
-  let userId;
+
   if (req.session.auth) {
     userId = req.session.auth.userId
+    bookshelves = await db.Bookshelf.findAll({ where: { userId } });
     userReviews = await db.Review.findAll({
       where: {
         bookId,
@@ -94,8 +100,9 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
       }
     })
   }
-  res.render('book', { title: 'Badbook', book, reviews, userReviews, userId, bookId, ratings, average, csrfToken: req.csrfToken() });
+  res.render('book', { title: 'Badbook', bookshelves, book, reviews, userReviews, userId, bookId, ratings, average, averageTwoDec, csrfToken: req.csrfToken() });
 }));
+
 // get -> post
 router.post('/:id(\\d+)/reviews/add', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
   const bookId = req.params.id;
@@ -104,8 +111,6 @@ router.post('/:id(\\d+)/reviews/add', requireAuth, csrfProtection, asyncHandler(
   const { userId } = req.session.auth
   const reviews = await db.Review.findAll({ where: { bookId }, include: db.User })
   res.render('add-review', { title: "Add a Review", review, csrfToken: req.csrfToken(), bookId, reviews, book });
-
-
 }));
 
 const reviewValidators = [
@@ -218,18 +223,17 @@ router.post('/:id(\\d+)/bookshelves', requireAuth, csrfProtection, asyncHandler(
 router.get('/:id(\\d+)/ratings', csrfProtection, asyncHandler(async (req, res, next) => {
   let userRating;
   const bookId = req.params.id;
-  const defaultStars = 4;
+  let userId;
   if (req.session.auth) {
-    const { userId } = req.session.auth;
+    userId = req.session.auth.userId;
     userRating = await db.Rating.findOne({ where: { bookId, userId } })
-
   }
   const ratings = await db.Rating.findAll({ where: { bookId } });
   let average = ratings.reduce(function (sum, rating) {
     return sum + rating.value;
   }, 0) / (ratings.length ? ratings.length : 1);
 
-  res.send({ userRating, average })
+  res.send({ userRating, average, userId })
 }));
 
 router.post('/:id(\\d+)/ratings', requireAuth, asyncHandler(async (req, res, next) => {

@@ -34,7 +34,20 @@
   display: flex;
 }
 
+.authorpicdiv{
+  border-bottom: 2px solid rgba(87, 87, 87, 0.384);
+  border-top: 2px solid rgba(87, 87, 87, 0.384);
+  display:grid;
+  grid-template-columns: 100px auto;
+  grid-template-rows: 100px auto;
+  margin-top: 50px;
+  padding-top: 30px;
+  padding-bottom: 40px;
+}
+
 .authorpic {
+  grid-column: 1;
+  grid-row: 1;
   display: inline;
   /* margin: 0 auto; */
   /* margin-left: -10%; */
@@ -42,7 +55,9 @@
   width: auto;
 }
 
-.authorpicdiv{
+.imgauthor{
+  grid-column: 1;
+  grid-row: 1;
   width: 80px;
   height: 80px;
   position: relative;
@@ -51,20 +66,44 @@
   margin-right: 20px;
 }
 
+.authorname {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.authorbio {
+  grid-column: 1 / span 2;
+  grid-row: 2;
+  line-height: 1.5;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  text-align:start;
+  object-fit: fill;
+}
+
+.authorname{
+  margin-top: 10px;
+  line-height: 1.5;
+  font-family: Copernicus, "Libre Baskerville", Georgia, serif;
+  font-weight: 300;
+  text-overflow: ellipsis;
+  font-size: 20px;
+}
+
 .author{
-  /* margin-top: ; si quiero bajar author title*/
   line-height: 1.5;
   font-family: Copernicus, "Libre Baskerville", Georgia, serif;
   font-weight: 300;
   text-overflow: ellipsis;
   font-size: 25px;
-  margin-bottom: 20px;
 }
 
 .ratetext{
   font-family:Arial, Helvetica, sans-serif;
-  font-size: 12px;
+  font-size: 15px;
   padding: 3px;
+  height: 20px;
 }
 
 .summary{
@@ -74,7 +113,7 @@
   font-size: 15px;
   margin-bottom: 20px;
   margin-top: 35px;
-  text-align: justify;
+  text-align: start;
   object-fit: fill;
 }
 
@@ -118,6 +157,32 @@
   border-color: rgba(54, 54, 54, 0.384);
 }
 
+.addreview{
+  height: 30px;
+  width: 80px;
+}
+
+.addtoshelfform{
+  text-align: end;
+  padding: 0px;
+}
+
+.add-to-bookshelf {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  margin: 0px;
+}
+
+.dropdownbookshelf{
+  padding: 0px;
+  width: auto;
+  text-align:left;
+  margin-top: 0px;
+}
+
 .reviewbox {
   display: flex;
   flex-direction: column;
@@ -159,6 +224,7 @@
   margin-bottom: 15px;
 }
 .review-body{
+  text-overflow: ellipsis;
   grid-column: 2;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 15px;
@@ -211,4 +277,28 @@
   cursor: pointer;
 }
 
+.form {
+  padding:0px;
+  padding-top:20px;
+  padding-bottom:20px;
+}
 
+
+.rateStars{
+  color: #ffa600;
+  white-space:nowrap;
+  font-size:40px;
+}
+
+.avgrating{
+  margin-left: 15px;
+  color: black;
+  font-size: 35px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.blackstar {
+  color: #ccc;
+  white-space:nowrap;
+  font-size:40px;
+}
