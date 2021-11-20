@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db/models');
-
+// const {bookIdArr} = require('./index');
 const { asyncHandler, csrfProtection } = require('../utils');
 const { requireAuth } = require('../auth')
 const { check, validationResult } = require('express-validator')
@@ -16,25 +16,80 @@ router.get('/', csrfProtection, asyncHandler(async (req, res) => {
   } else {
     res.render('books', { title: 'BadReads Books', books });
   }
-  
 }))
 
-router.get('/random', async(req, res, next) => {
-  //necessary inclusion from index.js for re-render?
-  // const reviews = await db.Review.findAll({
-  //   limit: 10,
-  //   order: [['updatedAt', 'DESC']],
-  //   include: [db.Book, db.User ]
-  // }); 
-  //logic for random book suggestions in index.js
-  let randomNum= Math.random();
+router.post('/random', async(req, res) => {
+  const {book1Id, book2Id, book3Id, suggestionNo} = req.body;
+  // console.log('we are here', req.body, book1Id, suggestionNo);
   const books = await db.Book.findAll();
-  const randomBookId = Math.round((books.length * randomNum));
-  const nextRandomBook = await db.Book.findOne({
+  // const bookIdSet = new Set();
+  // bookIdSet.add(book1Id);
+  // bookIdSet.add(book2Id);
+  // bookIdSet.add(book3Id);
+
+  //alternatively
+  const bookIdArr = [];
+  bookIdArr.push(book1Id);
+  bookIdArr.push(book2Id);
+  bookIdArr.push(book3Id);
+  let randomBookId;
+  let newBookIdArr;
+  // let max;
+// console.log(max);
+   let getRandomBookId = (max) => {
+    randomBookId= Math.floor(Math.random() * (max - 1) + 1);
+    return randomBookId
+  }
+
+  getRandomBookId(books.length);
+
+  console.log('testingID', getRandomBookId(books.length), randomBookId);
+  console.log('testingID', randomBookId);
+ 
+   const nextRandomBook = await db.Book.findOne({
         where: {id: randomBookId}
       });
+
+      // console.log('testingBOOK', nextRandomBook);
+      console.log('truefalse', bookIdArr.includes(randomBookId.toString()));
+      console.log('suggestionNo', suggestionNo);
+
+      //this function isnt running automatically???
+  let recursion = () => {
+    if (!bookIdArr.includes(randomBookId.toString())) {
+      console.log('before splice array', bookIdArr);
+      //turn set into array
+      // let bookIdArr = Array.from(bookIdSet);
+      //replace array value with new ID 
+      if (suggestionNo === '1') bookIdArr.splice(0,1,randomBookId.toString());
+      if (suggestionNo === '2') bookIdArr.splice(1,1,randomBookId.toString());
+      if (suggestionNo === '3') bookIdArr.splice(2,1,randomBookId.toString());
+      console.log('spliced array', bookIdArr);
+      newBookIdArr = bookIdArr
+      //find the next book which returns and ends the 
+          return nextRandomBook;
+        } else {
+          // how do I tell which number in the set needs to be updated based on the request? 
+          console.log('if true, we get here');
+          getRandomBookId(books.length);
+          recursion();
+    }
+}
+recursion();
+
+    // bookIdArr.forEach(ele => {
+    //   if (i === 0) {
+    //     bookIdArr.splice(0,1,randombookId)
+    //   } else if (i === 1) {
+    //     bookIdArr.splice(1,1,randombookId)
+    //   } else {
+    //     bookIdArr.splice(2,1,randombookId)
+    //   }
+    // })
+
       //responding to fetch in index.js
-      res.send({nextRandomBook});
+      res.json({nextRandomBook, newBookIdArr});
+      // res.json(newBookIdArr);
     });
 
 /* GET books id. */

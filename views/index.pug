@@ -7,7 +7,9 @@ append head
   script(src="/javascripts/index.js" type="module" defer)
 
 block content
+  br
   h1= title
+  br
   div.main-container
     section.column-1 Suggested Books:
       br
@@ -15,8 +17,25 @@ block content
       div.random-book
         img.random-book-cover(src=`${randomBook.coverPhoto}`)
       p.suggested-book-title= randomBook.title
+      //- p.suggested-book-rating= randomBook.rating
       br
-      button.next-book-btn Next Book
+      button.next-book-btn Next Suggestion
+      br
+      div.random-book2
+        img.random-book-cover-mid(src=`${randomBook2.coverPhoto}`)
+      p.suggested-book-title-mid= randomBook2.title
+      br
+      button.next-book-btn Next Suggestion
+      br
+      div.random-book3
+        img.random-book-cover-end(src=`${randomBook3.coverPhoto}`)
+      p.suggested-book-title-end= randomBook3.title
+      br
+      p.random-book-id= randomBook.id
+      p.random-book2-id= randomBook2.id
+      p.random-book3-id= randomBook3.id
+
+      button.next-book-btn Next Suggestion
     section.column-2
       each review in reviews
         div.review-container
