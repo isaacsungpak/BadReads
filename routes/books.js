@@ -16,26 +16,26 @@ router.get('/', csrfProtection, asyncHandler(async (req, res) => {
   } else {
     res.render('books', { title: 'BadReads Books', books });
   }
-  
+
 }))
 
-router.get('/random', async(req, res, next) => {
+router.get('/random', async (req, res, next) => {
   //necessary inclusion from index.js for re-render?
   // const reviews = await db.Review.findAll({
   //   limit: 10,
   //   order: [['updatedAt', 'DESC']],
   //   include: [db.Book, db.User ]
-  // }); 
+  // });
   //logic for random book suggestions in index.js
-  let randomNum= Math.random();
+  let randomNum = Math.random();
   const books = await db.Book.findAll();
   const randomBookId = Math.round((books.length * randomNum));
   const nextRandomBook = await db.Book.findOne({
-        where: {id: randomBookId}
-      });
-      //responding to fetch in index.js
-      res.send({nextRandomBook});
-    });
+    where: { id: randomBookId }
+  });
+  //responding to fetch in index.js
+  res.send({ nextRandomBook });
+});
 
 /* GET books id. */
 router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
@@ -216,7 +216,8 @@ router.post('/:id(\\d+)/ratings', requireAuth, asyncHandler(async (req, res, nex
   let average = ratings.reduce(function (sum, rating) {
     return sum + rating.value;
   }, 0) / (ratings.length);
-  console.log(average);
+
+  console.log(average, 'averageeeee');
   res.send({ average })
 }));
 
