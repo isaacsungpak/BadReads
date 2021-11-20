@@ -40,14 +40,13 @@ block content
                     label(for='star1' title='text') 1 star
 
             p.ratetext Rate this book
-
-            if average === 1
+            if average >= 1 && average < 2
                 p.ratetext  ★ avg rating
-            if average === 2
+            if average >= 2 && average < 3
                 p.ratetext  ★★ avg rating
-            if average === 3
+            if average >= 3 && average < 4
                 p.ratetext  ★★★ avg rating
-            if average === 4
+            if average >= 4 && average < 5
                 p.ratetext  ★★★★ avg rating
             if average === 5
                 p.ratetext  ★★★★★ avg rating

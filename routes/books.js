@@ -217,7 +217,8 @@ router.post('/:id(\\d+)/ratings', requireAuth, asyncHandler(async (req, res, nex
   let average = ratings.reduce(function (sum, rating) {
     return sum + rating.value;
   }, 0) / (ratings.length);
-  console.log(average);
+
+  console.log(average, 'averageeeee');
   res.send({ average })
 }));
 
