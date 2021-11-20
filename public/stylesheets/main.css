@@ -10,7 +10,6 @@ h1 {
 .main-container{
     display: flex;
     flex-direction: row;
-    background-color: #c0bfbb33;
 
 }
 
@@ -69,6 +68,10 @@ img {
     width: 100px;
     height: 20vh;
     object-fit: contain;
+}
+
+.random-book-id, .random-book2-id, .random-book3-id {
+    color: white;
 }
 
 
