@@ -23,18 +23,7 @@ block content
                 input#star1.star(type='radio' name='rating' value='1')
                 label(for='star1' title='text') 1 star
 
-            p.ratetext#rateThisBookText     
-
-            if average === 1
-                p.ratetext  ★ avg rating
-            if average === 2
-                p.ratetext  ★★ avg rating
-            if average === 3
-                p.ratetext  ★★★ avg rating
-            if average === 4
-                p.ratetext  ★★★★ avg rating
-            if average === 5
-                p.ratetext  ★★★★★ avg rating
+            p.ratetext#rateThisBookText
 
             if locals.authenticated && !userReviews.length
                 form.form(method="post" action=`/books/${bookId}/reviews/add/`)
@@ -53,23 +42,26 @@ block content
 
         .text
             .title= book.title
-            .authorinfo
-                .divauthorinfo
-                    .authorpicdiv
-                        img.authorpic(src=book.Author.photo alt='test')  
-                    .author= book.Author.name
-                if average === 1
+            .head
+                .author= book.Author.name
+                if average >= 1 && average < 2
                     p.rateStars  ★#[span.blackstar ★★★★]#[span.avgrating=averageTwoDec]
-                if average === 2
+                if average >= 2 && average < 3
                     p.rateStars  ★★#[span.blackstar ★★★]#[span.avgrating=averageTwoDec]
-                if average === 3
+                if average >= 3 && average < 4
                     p.rateStars  ★★★#[span.blackstar ★★]#[span.avgrating=averageTwoDec]
-                if average === 4
+                if average >= 4 && average < 5
                     p.rateStars  ★★★★#[span.blackstar ★]#[span.avgrating=averageTwoDec]
                 if average === 5
                     p.rateStars  ★★★★★#[span.avgrating=averageTwoDec]
                 .summary= book.summary
             .genre= book.Genre.name
+
+            .authorpicdiv
+                .imgauthor
+                    img.authorpic(src=book.Author.photo alt='test')  
+                .authorname= book.Author.name
+                .authorbio= book.Author.biography
 
             .reviewbox
                 if reviews.length
