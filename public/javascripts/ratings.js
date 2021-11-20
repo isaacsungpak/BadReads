@@ -39,11 +39,3 @@ window.addEventListener("DOMContentLoaded", (e) => {
         })
 
 })
-
-
-
-
-
-
-
-

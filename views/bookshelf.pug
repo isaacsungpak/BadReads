@@ -26,7 +26,7 @@ block content
                     th.date-added date added
                     th.remove-book
             tbody
-                if books
+                if books.length
                     each book in books
                         tr
                             td
@@ -46,3 +46,11 @@ block content
                                     form.remove(method="post" action=`/bookshelves/${bookshelf.id}/books/${book.book.id}/delete`)
                                         input(name="_csrf" type="hidden" value=csrfToken)
                                         button Remove
+    if !books.length
+        .form
+            .no-books-text
+                p It appears you have no books in your bookshelf! Go add some!
+            .no-books-button
+                form(method="get" action=`/books/`)
+                    input(name="_csrf" type="hidden" value=csrfToken)
+                    button Go To All Books

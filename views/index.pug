@@ -9,16 +9,35 @@ append head
   script(src="/javascripts/index.js" type="module" defer)
 
 block content
+  br
   h1= title
+  br
   div.main-container
     section.column-1 Suggested Books:
       br
       br
-      div.random-book
+      a.random-book(href=`/books/${randomBook.id}`)
         img.random-book-cover(src=`${randomBook.coverPhoto}`)
       p.suggested-book-title= randomBook.title
+      //- p.suggested-book-rating= randomBook.rating
       br
-      button.next-book-btn Next Book
+      button.next-book-btn Next Suggestion
+      br
+      a.random-book-2(href=`/books/${randomBook2.id}`)
+        img.random-book-cover-mid(src=`${randomBook2.coverPhoto}`)
+      p.suggested-book-title-mid= randomBook2.title
+      br
+      button.next-book-btn Next Suggestion
+      br
+      a.random-book-3(href=`/books/${randomBook3.id}`)
+        img.random-book-cover-end(src=`${randomBook3.coverPhoto}`)
+      p.suggested-book-title-end= randomBook3.title
+      br
+      button.next-book-btn Next Suggestion
+      p.random-book-id= randomBook.id
+      p.random-book2-id= randomBook2.id
+      p.random-book3-id= randomBook3.id
+
     section.column-2
       each review in reviews
         div.review-container
@@ -28,5 +47,3 @@ block content
             p.user <span>#{review.User.username}</span> reviewed <span>#{review.Book.title}</span>:
             br
             p.review= review.reviewBody
-
-  p Welcome to your Project Skeleton

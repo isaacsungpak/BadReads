@@ -41,8 +41,6 @@ form {
     box-sizing: border-box;
     width: 80%;
     margin: 8% 10%;
-
-    /*stacking fieldsets above each other*/
     position: relative;
 
 }
