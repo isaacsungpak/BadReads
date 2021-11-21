@@ -132,3 +132,15 @@ a > p:hover {
     width: 200px;
     overflow-wrap: normal;
 }
+
+.next-book-btn {
+    background-color: #ede6d6;
+    border: solid 1px #333333;
+    border-radius: 5px;
+    color: #333333;
+    padding: 5px;
+    text-align: center;
+    font-size: 14px;
+    margin: 10px 0px;
+    width: auto;
+}
