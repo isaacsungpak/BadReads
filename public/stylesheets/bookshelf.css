@@ -88,6 +88,7 @@ td {
 .book-title {
     width: 270px;
     padding: 20px;
+    
 }
 
 .book-title:not(th) {
