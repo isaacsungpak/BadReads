@@ -1,8 +1,3 @@
-
-/* styles for main page */
-
-
-
 h1 {
     color: #382110;
 }
@@ -15,7 +10,7 @@ h1 {
 
 .next-book-btn {
     padding: 0px 5px;
-    margin: 0ps auto;
+    margin: 0px auto;
     position: relative;
     cursor: pointer;
 }
@@ -30,12 +25,12 @@ p {
 }
 
 .column-1 {
-width: 20vw;
-margin-right: 2vw;
-min-width: 150px;
-display: flex;
-flex-direction: column;
-align-items: center;
+    width: 20vw;
+    margin-right: 2vw;
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .column-2 {
@@ -59,15 +54,23 @@ align-items: center;
 }
 
 .book-cover{
-    width: 100px;
-    height: 20vh;
+    max-width: 100px;
+    height: 150px;
+    display: flex;
     align-items: center;
-    margin-left: 10px;
+    margin: 10px 10px 10px 20px;
+}
+
+.suggestion-book-cover{
+    max-width: 125px;
+    height: 175px;
+    display: flex;
+    align-items: center;
 }
 
 img {
-    width: 100px;
-    height: 20vh;
+    max-width: 100px;
+    height: 150px;
     object-fit: contain;
 }
 
@@ -103,3 +106,29 @@ a > p:hover {
     text-decoration: underline;
 }
 
+.column-1 p {
+    font-size: 16px;
+    margin: 10px;
+}
+
+.suggested-title {
+    font-size: 20px;
+}
+
+.suggested-books {
+    margin-top: 30px;
+}
+
+.book-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.suggested-book-title {
+    text-align: center;
+    width: 200px;
+    overflow-wrap: normal;
+}
