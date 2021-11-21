@@ -18,24 +18,24 @@ block content
       .suggested-books
         .book-card
           a.random-book(href=`/books/${randomBook.id}`)
-            img.suggestion-book-cover(src=`${randomBook.coverPhoto}`)
+            img.suggestion-book-cover#first-cover(src=`${randomBook.coverPhoto}`)
           a.random-book(href=`/books/${randomBook.id}`)
-            p.suggested-book-title= randomBook.title
+            p.suggested-book-title#first-title= randomBook.title
           //- p.suggested-book-rating= randomBook.rating
           br
           button.next-book-btn Next Suggestion
         .book-card
           a.random-book-2(href=`/books/${randomBook2.id}`)
-            img.suggestion-book-cover(src=`${randomBook2.coverPhoto}`)
+            img.suggestion-book-cover#second-cover(src=`${randomBook2.coverPhoto}`)
           a.random-book-2(href=`/books/${randomBook2.id}`)
-            p.suggested-book-title= randomBook2.title
+            p.suggested-book-title#second-title= randomBook2.title
           br
           button.next-book-btn Next Suggestion
         .book-card
           a.random-book-3(href=`/books/${randomBook3.id}`)
-            img.suggestion-book-cover(src=`${randomBook3.coverPhoto}`)
+            img.suggestion-book-cover#third-cover(src=`${randomBook3.coverPhoto}`)
           a.random-book-2(href=`/books/${randomBook3.id}`)
-            p.suggested-book-title= randomBook3.title
+            p.suggested-book-title#third-title= randomBook3.title
           br
           button.next-book-btn Next Suggestion
       p.random-book-id= randomBook.id
