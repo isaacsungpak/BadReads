@@ -1,6 +1,6 @@
 .main {
   display:grid;
-  margin-right: 50px; 
+  margin-right: 50px;
   grid-template-columns: 400px 1fr;
   text-overflow: ellipsis;
 }
@@ -301,4 +301,18 @@
   color: #ccc;
   white-space:nowrap;
   font-size:40px;
+}
+
+.notloggedtext {
+  line-height: 1.5;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  text-overflow: ellipsis;
+  font-size: 15px;
+  margin-bottom: 20px;
+  margin-top: 35px;
+  text-align: start;
+  object-fit: fill;
+  border-style: solid;
+  border: green;
+  width: 250px;
 }

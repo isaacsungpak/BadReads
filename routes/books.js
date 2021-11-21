@@ -18,59 +18,59 @@ router.get('/', csrfProtection, asyncHandler(async (req, res) => {
   }
 }))
 
-router.post('/random', async(req, res) => {
+router.post('/random', async (req, res) => {
   //destructure req.body
-  const {book1Id, book2Id, book3Id, suggestionNo} = req.body;
+  const { book1Id, book2Id, book3Id, suggestionNo } = req.body;
   // find all books
 
   const books = await db.Book.findAll();
-  //create currently displayed books array 
+  //create currently displayed books array
   const bookIdArr = [];
   bookIdArr.push(book1Id);
   bookIdArr.push(book2Id);
   bookIdArr.push(book3Id);
   let newBookIdArr;
 
-//runs the functions
-getRandomBookId(books.length);
+  //runs the functions
+  getRandomBookId(books.length);
 
 
-function getRandomBookId (max) {
-  randomBookId= Math.floor(Math.random() * (max - 1) + 1);
-  // console.log('testingIDcheck', randomBookId);
-  // console.log('is this already displayed truefalse', bookIdArr.includes(randomBookId.toString()));
-  //calls for the next randombook using random id 
-  getNextRandomBook(randomBookId);
-}
-  
-  //function to get the next book object 
-async function getNextRandomBook (randomBookId) {
-  const nextRandomBook = await db.Book.findOne({
-
-    where: {id: randomBookId}
-  });
-  recursion(nextRandomBook)
-} 
-  
-//checks if the next random book is in the array, if it is then we restart the process at getrandombookid()
-let recursion = (nextRandomBook) => {
-  if (!bookIdArr.includes(randomBookId.toString())) {
-    // console.log('before splice array', bookIdArr);
-    if (suggestionNo === '1') bookIdArr.splice(0,1,randomBookId.toString());
-    if (suggestionNo === '2') bookIdArr.splice(1,1,randomBookId.toString());
-    if (suggestionNo === '3') bookIdArr.splice(2,1,randomBookId.toString());
-    // console.log('spliced array', bookIdArr);
-    //after splice, set newBookIdArr values 
-    newBookIdArr = bookIdArr
-    let theNextRandomBook = nextRandomBook;
-    // console.log('this should be the next book value', theNextRandomBook.dataValues.id)
-    res.json({theNextRandomBook, newBookIdArr});
-    return 
-  } else {
-    // console.log('if true, we repeat the process here');
-    getRandomBookId(books.length);
+  function getRandomBookId(max) {
+    randomBookId = Math.floor(Math.random() * (max - 1) + 1);
+    // console.log('testingIDcheck', randomBookId);
+    // console.log('is this already displayed truefalse', bookIdArr.includes(randomBookId.toString()));
+    //calls for the next randombook using random id
+    getNextRandomBook(randomBookId);
   }
-}
+
+  //function to get the next book object
+  async function getNextRandomBook(randomBookId) {
+    const nextRandomBook = await db.Book.findOne({
+
+      where: { id: randomBookId }
+    });
+    recursion(nextRandomBook)
+  }
+
+  //checks if the next random book is in the array, if it is then we restart the process at getrandombookid()
+  let recursion = (nextRandomBook) => {
+    if (!bookIdArr.includes(randomBookId.toString())) {
+      // console.log('before splice array', bookIdArr);
+      if (suggestionNo === '1') bookIdArr.splice(0, 1, randomBookId.toString());
+      if (suggestionNo === '2') bookIdArr.splice(1, 1, randomBookId.toString());
+      if (suggestionNo === '3') bookIdArr.splice(2, 1, randomBookId.toString());
+      // console.log('spliced array', bookIdArr);
+      //after splice, set newBookIdArr values
+      newBookIdArr = bookIdArr
+      let theNextRandomBook = nextRandomBook;
+      // console.log('this should be the next book value', theNextRandomBook.dataValues.id)
+      res.json({ theNextRandomBook, newBookIdArr });
+      return
+    } else {
+      // console.log('if true, we repeat the process here');
+      getRandomBookId(books.length);
+    }
+  }
 
 });
 
