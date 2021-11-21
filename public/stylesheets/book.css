@@ -1,6 +1,6 @@
 .main {
   display:grid;
-  margin-right: 50px; 
+  margin-right: 50px;
   grid-template-columns: 400px 1fr;
   text-overflow: ellipsis;
 }
@@ -165,6 +165,10 @@
 .addtoshelfform{
   text-align: end;
   padding: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .add-to-bookshelf {
