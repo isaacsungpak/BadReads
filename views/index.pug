@@ -28,14 +28,14 @@ block content
           a.random-book-2(href=`/books/${randomBook2.id}`)
             img.suggestion-book-cover(src=`${randomBook2.coverPhoto}`)
           a.random-book-2(href=`/books/${randomBook2.id}`)
-            p.suggested-book-title-mid= randomBook2.title
+            p.suggested-book-title= randomBook2.title
           br
           button.next-book-btn Next Suggestion
         .book-card
           a.random-book-3(href=`/books/${randomBook3.id}`)
             img.suggestion-book-cover(src=`${randomBook3.coverPhoto}`)
           a.random-book-2(href=`/books/${randomBook3.id}`)
-            p.suggested-book-title-end= randomBook3.title
+            p.suggested-book-title= randomBook3.title
           br
           button.next-book-btn Next Suggestion
       p.random-book-id= randomBook.id
