@@ -11,17 +11,21 @@ block content
         .book-card
             img.book-cover(src=book.coverPhoto alt='test')
 
-            .rating
-                input#star5.star(type='radio' name='rating' value='5')
-                label(for='star5' title='text') 5 stars
-                input#star4.star(type='radio' name='rating' value='4')
-                label(for='star4' title='text') 4 stars
-                input#star3.star(type='radio' name='rating' value='3')
-                label(for='star3' title='text') 3 stars
-                input#star2.star(type='radio' name='rating' value='2')
-                label(for='star2' title='text') 2 stars
-                input#star1.star(type='radio' name='rating' value='1')
-                label(for='star1' title='text') 1 star
+            if locals.authenticated
+                .rating
+                    input#star5.star(type='radio' name='rating' value='5')
+                    label(for='star5' title='text') 5 stars
+                    input#star4.star(type='radio' name='rating' value='4')
+                    label(for='star4' title='text') 4 stars
+                    input#star3.star(type='radio' name='rating' value='3')
+                    label(for='star3' title='text') 3 stars
+                    input#star2.star(type='radio' name='rating' value='2')
+                    label(for='star2' title='text') 2 stars
+                    input#star1.star(type='radio' name='rating' value='1')
+                    label(for='star1' title='text') 1 star
+
+            if !locals.authenticated
+                p.notloggedtext Please Log In or Register to add a rating and write a review!
 
             p.ratetext#rateThisBookText
 
@@ -29,7 +33,7 @@ block content
                 form.form(method="post" action=`/books/${bookId}/reviews/add/`)
                     input(name="_csrf" type="hidden" value=csrfToken)
                     button.button Write a Review
-                
+
             if bookshelves
                 .add-to-bookshelf
                     form.addtoshelfform(method="post" action=`/books/${book.id}/bookshelves`)
@@ -59,7 +63,7 @@ block content
 
             .authorpicdiv
                 .imgauthor
-                    img.authorpic(src=book.Author.photo alt='test')  
+                    img.authorpic(src=book.Author.photo alt='test')
                 .authorname= book.Author.name
                 .authorbio= book.Author.biography
 
