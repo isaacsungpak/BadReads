@@ -14,7 +14,8 @@ h1 {
 }
 
 .next-book-btn {
-    margin: 0 auto;
+    padding: 0px 5px;
+    margin: 0ps auto;
     position: relative;
     cursor: pointer;
 }
@@ -74,8 +75,31 @@ img {
     color: white;
 }
 
+.user {
+    display: flex;
+    align-items: baseline;
+}
 
-/* navbar styles here */
-/* .nav-bar{
+.username > span {
+    margin-right: 4px;
+}
 
-} */
+span > a {
+    margin-left: 4px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a > p {
+    transition: text-decoration .3s ease-in-out;
+}
+
+
+a > p:hover {
+    text-decoration: underline;
+}
+
