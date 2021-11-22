@@ -104,6 +104,7 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
 }));
 
 // get -> post
+
 router.post('/:id(\\d+)/reviews/add', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
   const bookId = req.params.id;
   const book = await db.Book.findByPk(bookId, { include: [db.Author, db.Genre] });
@@ -111,6 +112,8 @@ router.post('/:id(\\d+)/reviews/add', requireAuth, csrfProtection, asyncHandler(
   const { userId } = req.session.auth
   const reviews = await db.Review.findAll({ where: { bookId }, include: db.User })
   res.render('add-review', { title: "Add a Review", review, csrfToken: req.csrfToken(), bookId, reviews, book });
+
+
 }));
 
 const reviewValidators = [
@@ -139,12 +142,13 @@ router.post('/:id(\\d+)/reviews/', requireAuth, reviewValidators, csrfProtection
     await review.save()
     res.redirect(`/books/${bookId}`);
   } else {
-    const errors = validationErrors.array().map(e => e.msg)
+    const errors = validatorErrors.array().map(e => e.msg)
     res.render('add-review', {
       title: 'Add Review',
       review,
       csrfToken: req.csrfToken(),
-      errors
+      errors,
+      bookId,
     })
   }
 }))
@@ -160,10 +164,12 @@ router.get('/:id(\\d+)/reviews/edit/:reviewId(\\d+)', requireAuth, reviewValidat
     }
   });
   res.render('review-edit', { title: "Edit Review", userId, bookId, reviewId, review, csrfToken: req.csrfToken() })
+
 }));
 
 router.post('/:id(\\d+)/reviews/edit/:reviewId(\\d+)', requireAuth, reviewValidators, csrfProtection, asyncHandler(async (req, res, next) => {
   const bookId = req.params.id;
+  const reviewId = req.params.reviewId
   const { userId } = req.session.auth
   const review = await db.Review.findOne({
     where: {
@@ -171,15 +177,31 @@ router.post('/:id(\\d+)/reviews/edit/:reviewId(\\d+)', requireAuth, reviewValida
       userId
     }
   });
-  try {
+  //
+  const validatorErrors = validationResult(req)
+
+  if (validatorErrors.isEmpty()) {
     await review.update({
       reviewHeader: req.body.reviewHeader,
       reviewBody: req.body.reviewBody
     });
-  } catch (e) {
-    next(e);
+    res.redirect(`/books/${bookId}`);
+  } else {
+    const errors = validatorErrors.array().map((error) => error.msg)
+    res.render('review-edit', { title: "Edit Review", userId, bookId, reviewId, review, errors, csrfToken: req.csrfToken() })
   }
-  res.redirect(`/books/${bookId}`);
+  //
+
+
+  // try {
+  //   await review.update({
+  //     reviewHeader: req.body.reviewHeader,
+  //     reviewBody: req.body.reviewBody
+  //   });
+  // } catch (e) {
+  //   next(e);
+  // }
+  // res.redirect(`/books/${bookId}`);
 }));
 
 // require csrf token?
@@ -200,7 +222,6 @@ router.post('/:id(\\d+)/reviews/delete/:reviewId(\\d+)', requireAuth, asyncHandl
   }
   res.redirect(`/books/${bookId}`);
 }));
-
 // ----
 router.post('/:id(\\d+)/bookshelves', requireAuth, csrfProtection, asyncHandler(async (req, res, next) => {
   const bookId = req.params.id;
