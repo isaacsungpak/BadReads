@@ -54,7 +54,7 @@ p {
 }
 
 .book-cover{
-    max-width: 100px;
+    max-width: 120px;
     height: 150px;
     display: flex;
     align-items: center;
@@ -62,7 +62,7 @@ p {
 }
 
 .suggestion-book-cover{
-    width: 100%;
+    max-width: 120px;
     height: 150px;
     display: flex;
     align-items: center;
@@ -74,7 +74,7 @@ p {
 }
 
 img {
-    max-width: 100px;
+    max-width: 120px;
     height: 150px;
     object-fit: contain;
 }
@@ -154,4 +154,3 @@ a > p:hover {
 .next-book-btn:hover {
     background-color: rgba(151, 151, 151, 0.61);
 }
-
