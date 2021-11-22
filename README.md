@@ -1,6 +1,36 @@
-# Express Project Skeleton
+# BadReads
 
-Use this project skeleton as a starting point for structuring your app. Things to note
-* Sequelize configuration has not yet been added -- you will need to set that up yourself
-* You may find yourself wanting to use javascript -- js files can be added in `public/javascripts` and should be appended to the Pug templates as needed
-* CSS files can go in `public/stylesheets` and also will need to be added to Pug templates
+## Summary
+[BadReads](https://aa-bad-reads.herokuapp.com/) is a web application inspired by Amazon's [Goodreads](https://www.goodreads.com/).
+BadReads allows users to:
+* create an account
+* log into an existing account
+* log out of an account
+* view details about books and authors
+* create/delete bookshelves
+* edit names of existing bookshelves
+* add books to bookshelves
+* add/edit ratings on books
+* add/edit/delete reviews on books
+
+## Overall Structure
+### Back End
+The back end was built with [Express](https://expressjs.com/), and it utilizes a postgreSQL database.
+
+### Front End
+The front end was built with vanilla JS.
+
+### Technologies
+BadReads uses:
+* JavaScript
+* [Express](https://expressjs.com/)
+* [bcryptjs](https://www.npmjs.com/package/bcryptjs) for authentication
+* [PUG](https://pugjs.org/api/express.html)
+* CSS
+
+
+## Contributors
+* [Dylan Welzel](https://github.com/DylanWelzel)
+* [Joaquin Guitart](https://github.com/jaguitart)
+* [Ryan Bender](https://github.com/ryanbender34)
+* [Isaac Pak](https://github.com/isaacsungpak)
