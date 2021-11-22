@@ -31,11 +31,11 @@ window.addEventListener("DOMContentLoaded", (e) => {
                 }
                 starContainer.addEventListener("click", addStart)
             }
-            else {
-                Array.from(stars).forEach(star => {
-                    star.setAttribute("disabled", "true")
-                });
-            }
+            // else {
+            //     Array.from(stars).forEach(star => {
+            //         star.setAttribute("disabled", "true")
+            //     });
+            // }
         })
 
 })
