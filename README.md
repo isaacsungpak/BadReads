@@ -17,6 +17,9 @@ BadReads allows users to:
 ### Back End
 The back end was built with [Express](https://expressjs.com/), and it utilizes a postgreSQL database.
 
+#### Database Diagram
+![Database Diagram](https://github.com/isaacsungpak/BadReads/blob/main/DatabaseSchemeGroup.png)
+
 ### Front End
 The front end was built with vanilla JS.
 
