@@ -92,9 +92,13 @@ router.get('/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async (req, r
 router.post('/delete/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async (req, res, next) => {
     const bookshelfId = req.params.id;
     const bookshelf = await db.Bookshelf.findByPk(bookshelfId);
+    const booksOnBookshelf = await db.BooksOnBookshelf.findAll({where: { bookshelfId }});
     try {
+        for(let i = 0; i < booksOnBookshelf.length; i++) {
+            await booksOnBookshelf[i].destroy();
+        }
         await bookshelf.destroy();
-    } catch (e) {
+    } catch(e) {
         next(e);
     }
     res.redirect('/bookshelves');
