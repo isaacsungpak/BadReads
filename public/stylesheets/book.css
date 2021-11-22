@@ -10,7 +10,7 @@
   display: flex;
   flex-direction: column;
   align-items:center;
-  position: fixed;
+  position: absolute;
 }
 
 .text {
@@ -262,7 +262,6 @@
   position: absolute;
   right: 0px;
   background-color: #f9f9f9;
-  z-index: 1;
   width: 80px;
   height: 20px;
   font-family: Arial, Helvetica, sans-serif;

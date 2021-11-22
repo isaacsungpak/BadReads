@@ -40,7 +40,7 @@ p {
 
 .review-container {
     margin: 10px;
-    border: 1px solid grey;
+    border: 2px solid rgba(87, 87, 87, 0.151);
     border-radius: 5px;
     text-align: left;
     display: flex;
@@ -62,10 +62,15 @@ p {
 }
 
 .suggestion-book-cover{
-    max-width: 125px;
-    height: 175px;
+    width: 100%;
+    height: 150px;
     display: flex;
     align-items: center;
+    border-top-right-radius: 6%;
+    border-bottom-right-radius: 6%;
+    box-shadow: 0 2px 8px 0 rgb(0 0 0 / 20%);
+    display: block;
+    object-fit: fill;
 }
 
 img {
@@ -135,7 +140,7 @@ a > p:hover {
 
 .next-book-btn {
     background-color: #ede6d6;
-    border: solid 1px #333333;
+    border: solid 1px #b4b4b4;
     border-radius: 5px;
     color: #333333;
     padding: 5px;
@@ -143,4 +148,10 @@ a > p:hover {
     font-size: 14px;
     margin: 10px 0px;
     width: auto;
+    transition-duration: 0.3s;
 }
+
+.next-book-btn:hover {
+    background-color: rgba(151, 151, 151, 0.61);
+}
+
