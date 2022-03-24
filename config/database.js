@@ -1,5 +1,10 @@
 const { db: { username, password, database, host }, } = require('./index');
 
+const client = new Client({
+  connectionString: connectionString,
+  ssl: { rejectUnauthorized: false }
+})
+
 module.exports = {
   development: {
     username,
