@@ -1,7 +1,6 @@
 
 
 window.addEventListener("load", (event)=>{
-    // console.log("hello from javascript!");
 
 });
 
@@ -66,10 +65,6 @@ const fetchNextBookMiddle = async () => {
     }).then(res => res.json()).then(books => {
 
         let bookIdArr = [book1Id.innerHTML, book2Id.innerHTML, book3Id.innerHTML];
-        console.log(bookIdArr);
-        console.log(books)
-        // console.log(books.thetheNextRandomBook);
-        // console.log(books.newBookIdArr)
         book2Id.innerText = books.newBookIdArr[1];
         bookIdArr = books.newBookIdArr;
 

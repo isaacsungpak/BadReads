@@ -26,9 +26,7 @@ for(i = 0; i < 4; i++) {
   while (bookIdSet.size < 3) {
       bookIdSet.add(getRandomBookId(books.length));
   }
-  console.log('size is 3')
 }
-// console.log('99999999999999', randomBookId)
 // const totalBooks = books.length;
 let bookIdArr = Array.from(bookIdSet);
 // document.cookie = `bookIds=${bookIdArr}`;

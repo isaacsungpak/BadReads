@@ -37,8 +37,6 @@ router.post('/random', async (req, res) => {
 
   function getRandomBookId(max) {
     randomBookId = Math.floor(Math.random() * (max - 1) + 1);
-    // console.log('testingIDcheck', randomBookId);
-    // console.log('is this already displayed truefalse', bookIdArr.includes(randomBookId.toString()));
     //calls for the next randombook using random id
     getNextRandomBook(randomBookId);
   }
@@ -55,19 +53,15 @@ router.post('/random', async (req, res) => {
   //checks if the next random book is in the array, if it is then we restart the process at getrandombookid()
   let recursion = (nextRandomBook) => {
     if (!bookIdArr.includes(randomBookId.toString())) {
-      // console.log('before splice array', bookIdArr);
       if (suggestionNo === '1') bookIdArr.splice(0, 1, randomBookId.toString());
       if (suggestionNo === '2') bookIdArr.splice(1, 1, randomBookId.toString());
       if (suggestionNo === '3') bookIdArr.splice(2, 1, randomBookId.toString());
-      // console.log('spliced array', bookIdArr);
       //after splice, set newBookIdArr values
       newBookIdArr = bookIdArr
       let theNextRandomBook = nextRandomBook;
-      // console.log('this should be the next book value', theNextRandomBook.dataValues.id)
       res.json({ theNextRandomBook, newBookIdArr });
       return
     } else {
-      // console.log('if true, we repeat the process here');
       getRandomBookId(books.length);
     }
   }
@@ -258,7 +252,6 @@ router.get('/:id(\\d+)/ratings', csrfProtection, asyncHandler(async (req, res, n
 }));
 
 router.post('/:id(\\d+)/ratings', requireAuth, asyncHandler(async (req, res, next) => {
-  console.log('reqbodyyyyyy', req.body);
   const { userId } = req.session.auth;
   const bookId = req.params.id;
 
@@ -267,7 +260,6 @@ router.post('/:id(\\d+)/ratings', requireAuth, asyncHandler(async (req, res, nex
   // }
 
   let rating = await db.Rating.findOne({ where: { userId, bookId } })
-  console.log(rating, 'ratinggggg')
   let { value } = req.body;
   if (rating) {
     await rating.update({ value })
@@ -279,7 +271,6 @@ router.post('/:id(\\d+)/ratings', requireAuth, asyncHandler(async (req, res, nex
     return sum + rating.value;
   }, 0) / (ratings.length);
 
-  console.log(average, 'averageeeee');
   res.send({ average })
 }));
 

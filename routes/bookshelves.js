@@ -33,7 +33,6 @@ router.post('/add', requireAuth, bookshelfValidators, csrfProtection, asyncHandl
     if (validatorErrors.isEmpty() && !duplicate.length) {
         await bookshelf.save();
         const shelf = await db.Bookshelf.findOne({ where: { name, userId } });
-        console.log('shelf', shelf);
         res.redirect(`/bookshelves/${shelf.id}`);
     } else if (duplicate.length) {
         const errors = ["You already have a bookshelf with this name"];
